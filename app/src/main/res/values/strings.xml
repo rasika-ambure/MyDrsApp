@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MyDrsOrders</string>
+    <string-array name="Select_Speciality">
+        <item>Select Speciality</item>
+        <item>Pathologist</item>
+        <item>Mycologist</item>
+        <item>Psychologist</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="title_activity_choose_specialty">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="vision_and_mission"><b>Our VISION</b>\nPatients living with chronic illness, rare disease, or disability no longer struggle to access the treatment and assistance they need to lead their best life.\n\n<b>Our MISSION</b>\nTo provide the financial safety net, products, services, and assistance to patients and families living with rare and chronic diseases and disability. Patients living with chronic illness, rare disease, or disability no longer struggle to access the treatment and assistance they need to lead their best life.</string>
+    <string name="about"><b>About</b>\nMyDrsOrders app was designed to help patients recall conversations they are having with their healthcare providers and share those conversations with their loved ones and other providers. \n\nPSI was inspired to develop this app by an experience one of our employees had when their father was diagnosed with pancreatic cancer. When his parents returned from his father’s doctor appointments he and his siblings would ask “What did the doctor say?” and often the information they received from their parents seemed incomplete and inconsistent with what they were observing. The employee developed the first version of this app in 2009 to help his family better understand and manage their father’s health. \n\nWe hope MyDrsOrders helps you and your loved one’s better understand, share and care for the patients in your lives. \n\nFor those we serve, Your friends at PSI.</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/border_black.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/foursideradiussmall.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/ic_baseline_arrow_forward_ios_24.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/leftsiderounded.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/rightsiderounded.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/search_rounded.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/border_black.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/ic_down.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/ic_up.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/selector.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/selector_search.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_add_dr.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_last_three_rec.xml" value="0.16893115942028986" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_last_three_recordings.xml" value="0.21" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_main.xml" value="0.16168478260869565" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_new_patient.xml" value="0.2" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_provider_page.xml" value="0.17346014492753623" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_psi_valid.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_psi_validation.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_record.xml" value="0.17346014492753623" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_search.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_search_by_date_range.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_search_by_specialist.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_sign_in.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_varec_diagnosis.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_varec_general.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_varec_medications.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_varec_tests.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_view_all_rec.xml" value="0.18" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_view_all_recordings.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog2_spinner.xml" value="0.17346014492753623" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_about.xml" value="0.16168478260869565" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_player.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_recording.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_saving.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_search.xml" value="0.13" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_selected_provider.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_selected_specialty.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_spinner.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_two_part_consent.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_vision.xml" value="0.16168478260869565" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/rec_item.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/single_list_item.xml" value="0.17346014492753623" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/specialty_popup.xml" value="0.1526268115942029" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/top_menu_layout.xml" value="0.1526268115942029" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+
+    <item android:title="About"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:id="@+id/m1"/>
+    <item
+        android:orderInCategory="2"
+        android:title="PSI"
+        app:showAsAction="never"
+        android:id="@+id/m2"/>
+    <item
+        android:orderInCategory="3"
+        android:title="Vision and Mission"
+        app:showAsAction="never"
+        android:id="@+id/m3"/>
+    <item
+        android:orderInCategory="4"
+        android:title="Donate"
+        app:showAsAction="never"
+        android:id="@+id/m4"/>
+</menu>

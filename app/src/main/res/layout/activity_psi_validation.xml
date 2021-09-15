@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".PSI_Validation">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+
+            android:background="@drawable/rounded_corners_top"
+            android:backgroundTint="#e6e6e6"
+            android:fontFamily="@font/avenirnextmedium"
+            android:gravity="center"
+            android:text="Are you a PSI Patient?"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/share_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/share_btn"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_corner_bottom2"
+            android:fontFamily="@font/avenirnextmedium"
+            android:onClick="Yes"
+            android:text="Yes"
+            android:textAllCaps="false"
+            android:textColor="#3191DD"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_corners_botton"
+            android:fontFamily="@font/avenirnextmedium"
+            android:onClick="NO"
+            android:text="NO"
+            android:textColor="#EF4242"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/share_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <Button-->
+<!--        android:id="@+id/btn1"-->
+<!--        android:layout_width="89dp"-->
+<!--        android:layout_height="37dp"-->
+<!--        android:background="@drawable/all_rounded_corners"-->
+<!--        android:onClick="onClick"-->
+<!--        android:text="Sign Out"-->
+<!--        android:textColor="#000000"-->
+<!--        app:backgroundTint="#FFFFFF"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
