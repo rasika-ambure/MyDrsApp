@@ -10,6 +10,8 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/rightsiderounded.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/search_rounded.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/border_black.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/four_side_radius_small.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/four_side_rounded.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/ic_down.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/ic_up.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/selector.xml" value="0.19054054054054054" />
@@ -23,6 +25,8 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_psi_valid.xml" value="0.17657657657657658" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_psi_validation.xml" value="0.17657657657657658" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_record.xml" value="0.17346014492753623" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_result_for_search_by_date.xml" value="0.17300724637681159" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_result_for_specialty.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_search.xml" value="0.1526268115942029" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_search_by_date_range.xml" value="0.17657657657657658" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_search_by_specialist.xml" value="0.17657657657657658" />

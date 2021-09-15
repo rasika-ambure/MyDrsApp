@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0272B9"
+    tools:context=".ui.activity.ResultForSearchByDateActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topNavRFS_RFSBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:paddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleRFS_RFSBD"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="45dp"
+            android:drawableTop="@drawable/small_logo1"
+            android:text="MyDrsOrders"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/backTitleRFS_RFSBD"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/backTitleRFS_RFSBD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:onClick="onBack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/titleRFS_RFSBD"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/white"
+            tools:ignore="VectorDrawableCompat" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_constrain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/four_side_rounded"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavRFS_RFSBD">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/general_constrain_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="categoryRFDR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topNavRFS_RFSBD"
+            tools:ignore="NotSibling">
+
+            <TextView
+                android:id="@+id/cat_general_RFS_RFSBD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:fontFamily="@font/avenirnextmedium"
+                android:paddingLeft="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="General"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_general_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_general_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cat_general_RFS_RFSBD"
+                app:srcCompat="@drawable/general" />
+
+            <ImageView
+                android:id="@+id/down_arrow_RFS_RFSBD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_general_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_general_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cat_general_RFS_RFSBD"
+                app:layout_constraintTop_toTopOf="@+id/cat_general_RFS_RFSBD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/visible_or_invisible_general_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/general_constrain_RFS_RFSBD">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/audio_general_RFS_RFSBD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/diagnosis_constrain_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="categoryRFDR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/visible_or_invisible_general_RFS_RFSBD">
+
+            <TextView
+                android:id="@+id/cat_diagnosis_RFS_RFSBD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:fontFamily="@font/avenirnextmedium"
+                android:paddingLeft="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Diagnosis"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_diagnosis_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_diagnosis_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cat_diagnosis_RFS_RFSBD"
+                app:srcCompat="@drawable/diagnosis" />
+
+            <ImageView
+                android:id="@+id/down_arrow1_RFS_RFSBD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_diagnosis_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_diagnosis_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cat_diagnosis_RFS_RFSBD"
+                app:layout_constraintTop_toTopOf="@+id/cat_diagnosis_RFS_RFSBD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/visible_or_invisible1_diagnosis_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diagnosis_constrain_RFS_RFSBD">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/audio_diagnosis_RFS_RFSBD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/medication_constrain_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="categoryRFDR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/visible_or_invisible1_diagnosis_RFS_RFSBD">
+
+            <TextView
+                android:id="@+id/cat_medication_RFS_RFSBD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:fontFamily="@font/avenir_next_medium"
+                android:paddingLeft="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Medications"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_medication_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_medication_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cat_medication_RFS_RFSBD"
+                app:srcCompat="@drawable/medications" />
+
+            <ImageView
+                android:id="@+id/down_arrow2_medication_RFS_RFSBD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_medication_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_medication_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cat_medication_RFS_RFSBD"
+                app:layout_constraintTop_toTopOf="@+id/cat_medication_RFS_RFSBD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/visible_or_invisible2_medications_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/medication_constrain_RFS_RFSBD">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/audio_medications_RFS_RFSBD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tests_constrain_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="categoryRFDR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/visible_or_invisible2_medications_RFS_RFSBD">
+
+            <TextView
+                android:id="@+id/cat_tests_RFS_RFSBD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:fontFamily="@font/avenir_next_medium"
+                android:paddingLeft="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Tests"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_tests_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_tests_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cat_tests_RFS_RFSBD"
+                app:srcCompat="@drawable/tests" />
+
+            <ImageView
+                android:id="@+id/down_arrow3_tests_RFS_RFSBD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cat_tests_RFS_RFSBD"
+                app:layout_constraintEnd_toEndOf="@+id/cat_tests_RFS_RFSBD"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cat_tests_RFS_RFSBD"
+                app:layout_constraintTop_toTopOf="@+id/cat_tests_RFS_RFSBD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/visible_or_invisible3_tests_RFS_RFSBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tests_constrain_RFS_RFSBD">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/audio_tests_RFS_RFSBD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/no_recordings_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fontFamily="@font/avenir_next_regular"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:text="No recordings found"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavRFS_RFSBD" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

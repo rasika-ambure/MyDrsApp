@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0272B9"
-    tools:context=".Record"
+    tools:context=".ui.activity.RecordActivity"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,11 +62,26 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/black"
+        app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/menu" />
+
     <Button
         android:id="@+id/start_record_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/all_rounded_corners"
         android:drawableRight="@drawable/ic_baseline_mic_24"
         android:fontFamily="@font/avenirnextmedium"
@@ -83,27 +98,11 @@
         app:layout_constraintTop_toBottomOf="@+id/select_pro"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/black"
-        app:itemTextColor="@drawable/selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/menu" />
-
     <TextView
         android:id="@+id/textView9"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="456dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/avenirnextdemibold"
         android:gravity="center|top"
         android:text="Choose Specialty to Record"
@@ -115,7 +114,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintVertical_bias="0.009" />
 
     <TextView
         android:id="@+id/select_soc"
@@ -124,13 +123,12 @@
         android:background="@drawable/edit_border"
         android:drawableRight="@drawable/ic_baseline_chevron_right_24"
         android:gravity="center|start"
+        android:hint="Select specialty"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:hint="Select specialty"
-        android:textColorHint="@color/black"
         android:textColor="#000000"
+        android:textColorHint="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/select_pro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0272B9"
+    tools:context=".ui.activity.SearchByDateRangeActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout290_dr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:paddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title1_dr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/small_logo1"
+            android:text="MyDrsOrders"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="45dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back_dr"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/back_dr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:onClick="date_range_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/title1_dr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/white"
+            tools:ignore="VectorDrawableCompat" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView26_dr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirnextmedium"
+        android:paddingLeft="20dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:text="Search Recordings"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView27_dr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout290_dr" />
+
+    <TextView
+        android:id="@+id/textView27_dr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirnextmedium"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:text="Choose date range"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26_dr" />
+
+    <TextView
+        android:id="@+id/start_date"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_border"
+        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:gravity="center|start"
+        android:hint="Start Date"
+        android:paddingLeft="20dp"
+        android:textAlignment="center"
+        android:paddingRight="20dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/end_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27_dr" />
+
+    <TextView
+        android:id="@+id/end_date"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_border"
+        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:gravity="center|start"
+        android:hint="End Date"
+        android:paddingLeft="20dp"
+        android:textAlignment="center"
+        android:paddingRight="20dp"
+        android:textColor="#000000"
+        android:textColorHint="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/start_date"
+        app:layout_constraintTop_toBottomOf="@+id/textView27_dr" />
+
+    <Button
+        android:id="@+id/search_dr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/four_side_radius_small"
+        android:drawableTint="#778899"
+        android:onClick="onSearchDR"
+        android:fontFamily="@font/avenirnextmedium"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="Search"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_date"
+        app:layout_constraintVertical_bias="0.114" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
