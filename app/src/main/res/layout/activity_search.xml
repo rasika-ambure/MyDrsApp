@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="navigate"
     android:layout_gravity="bottom"
     android:background="#0272B9"
     tools:context=".ui.activity.SearchActivity">
@@ -17,32 +18,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:foregroundGravity="top|center"
-            app:layout_constraintBottom_toTopOf="@+id/textView21"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/small_logo1" />
-
-
         <TextView
             android:id="@+id/textView21"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenirnextdemibold"
+            android:drawableTop="@drawable/small_logo1"
+            android:fontFamily="@font/avenir_next_medium"
             android:gravity="bottom|center"
             android:text="MyDrsOrders"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/first_text_round"
-            android:fontFamily="@font/avenirnextregular"
+            android:fontFamily="@font/avenir_next_regular"
             android:gravity="center_horizontal"
             android:paddingTop="13dp"
             android:paddingBottom="13dp"

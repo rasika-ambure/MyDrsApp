@@ -14,7 +14,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginBottom="0dp"
         android:background="@drawable/top_10_round"
-        android:backgroundTint="#ffccb9b9"
+        android:backgroundTint="#bababa"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"

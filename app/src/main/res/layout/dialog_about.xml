@@ -21,6 +21,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/back_border"
         android:drawableLeft="@drawable/ic_back"
+        android:fontFamily="@font/avenir_next_medium"
         android:text="Back"
         android:textColor="@color/black"
         android:textSize="24sp"

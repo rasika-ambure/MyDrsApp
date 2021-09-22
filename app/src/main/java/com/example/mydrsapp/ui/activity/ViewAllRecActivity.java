@@ -1,5 +1,6 @@
 package com.example.mydrsapp.ui.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,13 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -63,6 +69,7 @@ public class ViewAllRecActivity extends AppCompatActivity {
     ArrayList nameSplit, catSplit;
     MediaPlayer mediaPlayer = null;
     boolean isPlaying = false;
+    DownloadManager manager;
 
     Dialog playerDialog;
 
@@ -105,6 +112,11 @@ public class ViewAllRecActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_recordings);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
 
         noRecordings = findViewById(R.id.no_recordings_all);
         Bundle bundle = getIntent().getExtras();
@@ -518,8 +530,19 @@ public class ViewAllRecActivity extends AppCompatActivity {
         });
 
         shareBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
+                //------------------------------Download audio file from url------------------------------
+                String fileName = obj.getName();
+                manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse(wavUrl);
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_AUDIOBOOKS,fileName);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                manager.enqueue(request);
+                //----------------------------------------------------------------------------------------
+
             }
         });
 

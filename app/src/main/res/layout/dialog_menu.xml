@@ -12,19 +12,19 @@
     style="@style/Animation.Design.BottomSheetDialog"
     tools:context=".ui.activity.SearchActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:visibility="gone"
-        android:background="@color/black"
-        app:itemTextColor="@drawable/selector"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu" />
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom_navigator"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="10dp"-->
+<!--        android:visibility="gone"-->
+<!--        android:background="@color/black"-->
+<!--        app:itemTextColor="@drawable/selector"-->
+<!--        app:labelVisibilityMode="labeled"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:menu="@menu/menu" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -32,13 +32,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/donate"
@@ -49,8 +48,8 @@
             android:fontFamily="@font/avenirnextmedium"
             android:gravity="center|left"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingTop="5dp"
+            android:paddingRight="20dp"
             android:paddingBottom="5dp"
             android:text="Donate"
             android:textColor="#000000"
@@ -68,10 +67,10 @@
             android:drawableRight="@drawable/ic_baseline_chevron_right_24"
             android:fontFamily="@font/avenirnextmedium"
             android:gravity="center|left"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:paddingLeft="20dp"
+            android:paddingTop="5dp"
             android:paddingRight="20dp"
+            android:paddingBottom="5dp"
             android:text="Vision and Mission"
             android:textColor="#000000"
             android:textSize="24sp"
@@ -89,13 +88,14 @@
             android:fontFamily="@font/avenirnextmedium"
             android:gravity="center|left"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingTop="5dp"
+            android:paddingRight="20dp"
             android:paddingBottom="5dp"
             android:text="About"
             android:textColor="#000"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,8 +108,8 @@
             android:fontFamily="@font/avenirnextmedium"
             android:gravity="center|left"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingTop="5dp"
+            android:paddingRight="20dp"
             android:paddingBottom="5dp"
             android:text="PSI"
             android:textColor="#000000"

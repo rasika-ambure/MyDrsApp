@@ -7,45 +7,42 @@
     android:background="#0272B9"
     tools:context=".ui.activity.SearchByDateRangeActivity">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout290_dr"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:paddingTop="5dp"
+        android:background="#121212"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/title1_dr"
-            android:layout_width="0dp"
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/small_logo1"
+            android:fontFamily="@font/avenir_next_medium"
+            android:gravity="bottom|center"
             android:text="MyDrsOrders"
-            android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:layout_marginRight="45dp"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/back_dr"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/back_dr"
+        <ImageButton
+            android:id="@+id/back_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="5dp"
             android:onClick="date_range_back"
+            android:backgroundTint="#121212"
+            android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/title1_dr"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back"
-            app:tint="@color/white"
-            tools:ignore="VectorDrawableCompat" />
+            app:layout_constraintTop_toTopOf="@+id/textView21" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -87,11 +84,12 @@
         android:layout_height="50dp"
         android:background="@drawable/edit_border"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:fontFamily="@font/avenir_next_medium"
         android:gravity="center|start"
         android:hint="Start Date"
         android:paddingLeft="20dp"
-        android:textAlignment="center"
         android:paddingRight="20dp"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textColorHint="@color/black"
         android:textSize="20sp"
@@ -105,11 +103,12 @@
         android:layout_height="50dp"
         android:background="@drawable/edit_border"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:fontFamily="@font/avenir_next_medium"
         android:gravity="center|start"
         android:hint="End Date"
         android:paddingLeft="20dp"
-        android:textAlignment="center"
         android:paddingRight="20dp"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textColorHint="@color/black"
         android:textSize="20sp"

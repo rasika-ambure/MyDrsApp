@@ -1,7 +1,10 @@
 package com.example.mydrsapp.ui.activity;
 
 import android.app.DatePickerDialog;
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +32,7 @@ public class SearchByDateRangeActivity extends AppCompatActivity {
     ArrayList currentSepDate;
     long startD, endD, todayD, diff, diff1;
 
+
     Button search;
     String id, name;
 
@@ -36,6 +40,11 @@ public class SearchByDateRangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_by_date_range);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

@@ -9,43 +9,41 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutSpecialty"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:paddingTop="5dp"
+        android:background="#121212"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/title1_spe"
-            android:layout_width="0dp"
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="45dp"
             android:drawableTop="@drawable/small_logo1"
+            android:fontFamily="@font/avenir_next_medium"
+            android:gravity="bottom|center"
             android:text="MyDrsOrders"
-            android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView5_spec"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView5_spec"
+        <ImageButton
+            android:id="@+id/back_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="#121212"
+            android:src="@drawable/ic_back"
             android:onClick="title_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/title1_spe"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back"
-            app:tint="@color/white"
-            tools:ignore="VectorDrawableCompat" />
+            app:layout_constraintTop_toTopOf="@+id/textView21" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -60,7 +58,6 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView27"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayoutSpecialty" />
@@ -76,80 +73,187 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/select_soc_specialty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
-    <TextView
-        android:id="@+id/select_soc_specialty"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_border"
-        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
-        android:gravity="center|start"
-        android:hint="Select Specialty"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textColor="#000000"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+<!--    <TextView-->
+<!--        android:id="@+id/select_soc_specialty"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="@drawable/edit_border"-->
+<!--        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"-->
+<!--        android:gravity="center|start"-->
+<!--        android:hint="Select Specialty"-->
+<!--        android:paddingLeft="20dp"-->
+<!--        android:paddingRight="20dp"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textColorHint="@color/black"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView27" />-->
 
-    <TextView
-        android:id="@+id/textView19_specs"
-        android:layout_width="wrap_content"
+<!--    <TextView-->
+<!--        android:id="@+id/textView19_specs"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/avenir_next_medium"-->
+<!--        android:text="Specialty"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/select_soc_specialty"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/select_soc_specialty"-->
+<!--        app:layout_constraintHorizontal_bias="0.819"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/select_soc_specialty"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView27"-->
+<!--        app:layout_constraintVertical_bias="0.529" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/select_pro_specialty"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="@drawable/edit_border"-->
+<!--        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"-->
+<!--        android:gravity="center|start"-->
+<!--        android:hint="Select Provider"-->
+<!--        android:paddingLeft="20dp"-->
+<!--        android:paddingRight="20dp"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textColorHint="@color/black"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/select_soc_specialty" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/pro_specialty"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/avenir_next_medium"-->
+<!--        android:text="Provider"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/select_pro_specialty"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/select_pro_specialty"-->
+<!--        app:layout_constraintHorizontal_bias="0.804"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/select_pro_specialty"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/select_soc_specialty"-->
+<!--        app:layout_constraintVertical_bias="0.437" />-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/selectSpecialty2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/avenir_next_medium"
-        android:text="Specialty"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/select_soc_specialty"
-        app:layout_constraintEnd_toEndOf="@+id/select_soc_specialty"
-        app:layout_constraintHorizontal_bias="0.819"
-        app:layout_constraintStart_toStartOf="@+id/select_soc_specialty"
-        app:layout_constraintTop_toBottomOf="@+id/textView27"
-        app:layout_constraintVertical_bias="0.529" />
-
-    <TextView
-        android:id="@+id/select_pro_specialty"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_border"
-        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
-        android:gravity="center|start"
-        android:hint="Select Provider"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textColor="#000000"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_soc_specialty" />
+        app:layout_constraintTop_toBottomOf="@+id/textView27">
 
-    <TextView
-        android:id="@+id/pro_specialty"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/select_soc1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_medium"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:text="Select Specialty"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView18"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_medium"
+            android:hint="Specialty"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/selectProvider1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/avenir_next_medium"
-        android:text="Provider"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/select_pro_specialty"
-        app:layout_constraintEnd_toEndOf="@+id/select_pro_specialty"
-        app:layout_constraintHorizontal_bias="0.804"
-        app:layout_constraintStart_toStartOf="@+id/select_pro_specialty"
-        app:layout_constraintTop_toBottomOf="@+id/select_soc_specialty"
-        app:layout_constraintVertical_bias="0.437" />
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectSpecialty2">
+
+        <ImageView
+            android:id="@+id/proImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+        <TextView
+            android:id="@+id/select_pro1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_medium"
+            android:paddingLeft="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:text="Select Provider"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/pro1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pro1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_medium"
+            android:hint="  provider"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/proImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <Button
         android:id="@+id/search_spec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
         android:background="@drawable/four_side_radius_small"
         android:drawableTint="#778899"
         android:fontFamily="@font/avenir_next_medium"
@@ -158,9 +262,9 @@
         android:text="Search"
         android:textAllCaps="false"
         android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_pro_specialty" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView28"
@@ -172,10 +276,8 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/search_spec"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_pro_specialty"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/selectProvider1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

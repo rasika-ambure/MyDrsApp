@@ -14,7 +14,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="0dp"
         android:background="@drawable/top_10_round"
-        android:backgroundTint="#ffccb9b9"
+        android:backgroundTint="#bababa"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254">
+        app:layout_constraintVertical_bias="0.233">
 
         <EditText
             android:id="@+id/f_ed1"
@@ -159,6 +159,7 @@
         android:padding="10dp"
         android:background="@color/black"
         app:itemTextColor="@drawable/selector"
+            android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -166,5 +167,97 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/menu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrain_np"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/sea_text_np"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:onClick="onSearchNP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rec_text_np"
+            app:layout_constraintTop_toBottomOf="@+id/sea_np"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <TextView
+            android:id="@+id/rec_text_np"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Record"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:onClick="onRecordNP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sea_text_np"
+            app:layout_constraintStart_toEndOf="@+id/add_text_np"
+            app:layout_constraintTop_toBottomOf="@+id/rec_np"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <ImageView
+            android:id="@+id/rec_np"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:onClick="onRecordNP"
+            app:layout_constraintBottom_toTopOf="@+id/rec_text_np"
+            app:layout_constraintEnd_toStartOf="@+id/sea_np"
+            app:layout_constraintStart_toEndOf="@+id/add_np"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/record_inactive" />
+
+        <ImageView
+            android:id="@+id/add_np"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/add_text_np"
+            app:layout_constraintEnd_toStartOf="@+id/rec_np"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/add_inactive" />
+
+        <ImageView
+            android:id="@+id/sea_np"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:onClick="onSearchNP"
+            app:layout_constraintBottom_toTopOf="@+id/sea_text_np"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/rec_np"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/search_inactive" />
+
+        <TextView
+            android:id="@+id/add_text_np"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:text="Add Dr."
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rec_text_np"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_np"
+            app:layout_constraintVertical_bias="0.666" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,10 @@
 package com.example.mydrsapp.ui.activity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,11 +26,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,12 +39,17 @@ import com.example.mydrsapp.ui.adapter.searchbyspecialist.SearchBySpecialtyDiagn
 import com.example.mydrsapp.ui.adapter.searchbyspecialist.SearchBySpecialtyGeneralAdapter;
 import com.example.mydrsapp.ui.adapter.searchbyspecialist.SearchBySpecialtyMedicationsAdapter;
 import com.example.mydrsapp.ui.adapter.searchbyspecialist.SearchBySpecialtyTestsAdapter;
+import com.example.mydrsapp.ui.adapter.viewallrecordings.ViewAllRecordingsDiagnosisAdapter;
+import com.example.mydrsapp.ui.adapter.viewallrecordings.ViewAllRecordingsGeneralAdapter;
+import com.example.mydrsapp.ui.adapter.viewallrecordings.ViewAllRecordingsMedicationsAdapter;
+import com.example.mydrsapp.ui.adapter.viewallrecordings.ViewAllRecordingsTestsAdapter;
 import com.example.mydrsapp.utils.ApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -61,7 +67,7 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
 //--------------------------------- For Offline Recordings -----------------------------------------
 
     Button deleteBtn, shareBtn;
-    ArrayList nameSplit, catSplit;
+    ArrayList catSplit;
     MediaPlayer mediaPlayer = null;
     boolean isPlaying = false;
 
@@ -84,12 +90,12 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
     long fDate, tDate, diffTF;
 //--------------------------------------------------------------------------------------------------
 
-//--------------------------------- For Online Recordings ------------------------------------------
+    //--------------------------------- For Online Recordings ------------------------------------------
     public ConstraintLayout generalConstrain, diagnosisConstrain, medicationConstrain, testsConstrain;
     ImageView downBtnG, downBtnD, downBtnM, downBtnT;
-//    private boolean isVisible = false;
+    //    private boolean isVisible = false;
     private RecyclerView audioListG, audioListD, audioListM, audioListT;
-//    private File[] allFiles;
+    //    private File[] allFiles;
 //    private TimeAgo timeAgo;
     public ScrollView resG, resD, resM, resT;
     private boolean isGenExpanded = false;
@@ -105,6 +111,11 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_for_specialty);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
 
 //        String path = this.getExternalFilesDir("/").getAbsolutePath();
 //        File directory = new File(path);
@@ -220,7 +231,6 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
 
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
-        nameSplit = new ArrayList<>();
         catSplit = new ArrayList<>();
         mQueue = Volley.newRequestQueue(ResultForSpecialtyActivity.this);
 
@@ -276,55 +286,104 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
                         recordingList.add(model);
                     }
 
+                    Log.i("previous data....", specialtyName + ", " + provider);
                     newListGeneral = new ArrayList<>();
-                    for (int i=0; i<recordingList.size(); i++){
+                    newListDiagnosis = new ArrayList<>();
+                    newListMedications = new ArrayList<>();
+                    newListTests = new ArrayList<>();
+
+                    for (int i = 0; i < recordingList.size(); i++) {
+
+                        String name1 = recordingList.get(i).getName();
+                        Log.i("name1.....", i + ", " + name1);
+
+                        ArrayList nameSplit = new ArrayList<>();
+
+                        Log.i("File last modified:", name1);
+                        String[] allName = name1.split("-", 4);
+                        for (String sepName : allName) {
+                            Log.i("Sep Date", sepName);
+                            nameSplit.add(sepName);
+                        }
+                        String patient = (String) nameSplit.get(0);
+                        String specialty = (String) nameSplit.get(1);
+                        String providerName = (String) nameSplit.get(2);
+                        String categoryName = (String) nameSplit.get(3);
+
                         String category = recordingList.get(i).getCategory();
-                        if (category.equals("general")){
+                        if (specialty.toLowerCase().equals(specialtyName.toLowerCase()) && providerName.toLowerCase().equals(provider.toLowerCase()) && category.toLowerCase().equals("general")) {
+                            Log.i("general data.........1", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
                             newListGeneral.add(recordingList.get(i));
+                        } else {
+                            Log.i("general data.........2", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
+                        }
+
+                        if (specialty.toLowerCase().equals(specialtyName.toLowerCase()) && providerName.toLowerCase().equals(provider.toLowerCase()) && category.toLowerCase().equals("diagnosis")) {
+                            Log.i("diagnosis data.......1", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
+                            newListDiagnosis.add(recordingList.get(i));
+                        } else {
+                            Log.i("diagnosis data.......2", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
+                        }
+
+                        if (specialty.toLowerCase().equals(specialtyName.toLowerCase()) && providerName.toLowerCase().equals(provider.toLowerCase()) && category.toLowerCase().equals("medication")) {
+                            Log.i("medication data......1", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
+                            newListMedications.add(recordingList.get(i));
+                        } else {
+                            Log.i("medication data......2", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
+                        }
+
+                        if (specialty.toLowerCase().equals(specialtyName.toLowerCase()) && providerName.toLowerCase().equals(provider.toLowerCase()) && category.toLowerCase().equals("tests")) {
+                            Log.i("tests data.........1", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
+                            newListTests.add(recordingList.get(i));
+                        } else {
+                            Log.i("tests data.........2", specialty + "," + providerName + "," + recordingList.get(i).getCategory() + ", " + recordingList.get(i).getName());
                         }
                     }
                     generalAdapter.updateDataGeneral(newListGeneral);
-
-                    newListDiagnosis = new ArrayList<>();
-                    for (int i=0; i<recordingList.size(); i++){
-                        String category = recordingList.get(i).getCategory();
-                        if (category.equals("diagnosis")){
-                            newListDiagnosis.add(recordingList.get(i));
-                        }
-                    }
                     diagnosisAdapter.updateDataDiagnosis(newListDiagnosis);
-
-                    newListMedications = new ArrayList<>();
-                    for (int i=0; i<recordingList.size(); i++){
-                        String category = recordingList.get(i).getCategory();
-                        if (category.equals("medication")){
-                            newListMedications.add(recordingList.get(i));
-                        }
-                    }
                     medicationsAdapter.updateDataMedications(newListMedications);
-
-                    newListTests = new ArrayList<>();
-                    for (int i=0; i<recordingList.size(); i++){
-                        String category = recordingList.get(i).getCategory();
-                        if (category.equals("tests")){
-                            newListTests.add(recordingList.get(i));
-                        }
-                    }
                     testsAdapter.updateDataTests(newListTests);
 
-                    if (generalAdapter.getItemCount()==0){
+//                    newListDiagnosis = new ArrayList<>();
+//                    for (int i=0; i<recordingList.size(); i++){
+//                        String category = recordingList.get(i).getCategory();
+//                        if (category.equals("diagnosis")){
+//                            newListDiagnosis.add(recordingList.get(i));
+//                        }
+//                    }
+//                    diagnosisAdapter.updateDataDiagnosis(newListDiagnosis);
+//
+//                    newListMedications = new ArrayList<>();
+//                    for (int i=0; i<recordingList.size(); i++){
+//                        String category = recordingList.get(i).getCategory();
+//                        if (category.equals("medication")){
+//                            newListMedications.add(recordingList.get(i));
+//                        }
+//                    }
+//                    medicationsAdapter.updateDataMedications(newListMedications);
+//
+//                    newListTests = new ArrayList<>();
+//                    for (int i=0; i<recordingList.size(); i++){
+//                        String category = recordingList.get(i).getCategory();
+//                        if (category.equals("tests")){
+//                            newListTests.add(recordingList.get(i));
+//                        }
+//                    }
+//                    testsAdapter.updateDataTests(newListTests);
+//
+                    if (generalAdapter.getItemCount() == 0) {
                         generalConstrain.setVisibility(View.GONE);
                     }
-                    if (diagnosisAdapter.getItemCount()==0){
+                    if (diagnosisAdapter.getItemCount() == 0) {
                         diagnosisConstrain.setVisibility(View.GONE);
                     }
-                    if (medicationsAdapter.getItemCount()==0){
+                    if (medicationsAdapter.getItemCount() == 0) {
                         medicationConstrain.setVisibility(View.GONE);
                     }
-                    if (testsAdapter.getItemCount()==0){
+                    if (testsAdapter.getItemCount() == 0) {
                         testsConstrain.setVisibility(View.GONE);
                     }
-                    if (generalAdapter.getItemCount()==0 && diagnosisAdapter.getItemCount()==0 && medicationsAdapter.getItemCount()==0 && testsAdapter.getItemCount()==0){
+                    if (generalAdapter.getItemCount() == 0 && diagnosisAdapter.getItemCount() == 0 && medicationsAdapter.getItemCount() == 0 && testsAdapter.getItemCount() == 0) {
                         noRecordings.setVisibility(View.VISIBLE);
                     }
 
@@ -530,12 +589,12 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
                         dialog.dismiss();
                         DeleteRecording1(obj.getPatient_id(), obj.getId());
                         playerDialog.dismiss();
-                        Intent i1 = new Intent(ResultForSpecialtyActivity.this, ResultForSpecialtyActivity.class);
-                        i1.putExtra("id14", patientId);
-                        i1.putExtra("name13", patientName);
-                        i1.putExtra("specialty", specialtyName);
-                        i1.putExtra("provider", provider);
-                        startActivity(i1);
+                        Intent i2 = new Intent(ResultForSpecialtyActivity.this, ResultForSpecialtyActivity.class);
+                        i2.putExtra("specialty", specialtyName);
+                        i2.putExtra("provider", provider);
+                        i2.putExtra("id11", patientId);
+                        i2.putExtra("name10", patientName);
+                        startActivity(i2);
                         overridePendingTransition(0, 0);
                         finish();
                     }
@@ -690,6 +749,7 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
 
         Log.i("File Name:", name1);
         String[] allName = name1.split("-", 4);
+        ArrayList nameSplit = new ArrayList<>();
 
         for (String sepName : allName) {
             Log.i("Sep Name", sepName);
@@ -744,18 +804,21 @@ public class ResultForSpecialtyActivity extends AppCompatActivity {
     public void getRecordingFilesGeneralSpecialty(RecordingModel obj) {
         onClickListener(obj);
     }
+
     public void getRecordingFilesDiagnosisSpecialty(RecordingModel obj) {
         onClickListener(obj);
     }
+
     public void getRecordingFilesMedicationsSpecialty(RecordingModel obj) {
         onClickListener(obj);
     }
+
     public void getRecordingFilesTestsSpecialty(RecordingModel obj) {
         onClickListener(obj);
     }
 
     private void DeleteRecording1(String patient_id1, String id1) {
-        Call<DeleteResponse> call = ApiClient.getDeleteService().DeleteRecording(patient_id1,id1);
+        Call<DeleteResponse> call = ApiClient.getDeleteService().DeleteRecording(patient_id1, id1);
         call.enqueue(new Callback<DeleteResponse>() {
             @Override
             public void onResponse(Call<DeleteResponse> call, retrofit2.Response<DeleteResponse> response) {

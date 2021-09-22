@@ -2,6 +2,15 @@ package com.example.mydrsapp.model;
 
 public class RecordResponse {
     private Data data;
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Data getData() {
         return data;

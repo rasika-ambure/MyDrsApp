@@ -3,6 +3,8 @@ package com.example.mydrsapp.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,11 +14,17 @@ import com.example.mydrsapp.R;
 public class PSIValidationActivity extends AppCompatActivity {
 //    Button b1;
 //    GoogleSignInClient mGoogleSignInClient;
-    String patient_id;
+    String patient_id, patient_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_psi_validation);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(Color.parseColor("#FDE583"));
+        }
+
         Bundle b2 = getIntent().getExtras();
         if (b2!=null){
             patient_id = b2.getString("id");
@@ -56,6 +64,8 @@ public class PSIValidationActivity extends AppCompatActivity {
     public void Yes(View view) {
         Intent psi = new Intent(PSIValidationActivity.this, PSIPinActivity.class);
         psi.putExtra("id", patient_id);
+        String name = "";
+        psi.putExtra("name", name);
         startActivity(psi);
 //        finish();
     }

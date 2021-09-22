@@ -3,6 +3,8 @@ package com.example.mydrsapp.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,11 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
@@ -92,4 +99,12 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    public void navigate(View view) {
+        Intent i = new Intent(SearchActivity.this, RecordActivity.class);
+        i.putExtra("id2", patient_id);
+        i.putExtra("name", patient_name);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
+    }
 }

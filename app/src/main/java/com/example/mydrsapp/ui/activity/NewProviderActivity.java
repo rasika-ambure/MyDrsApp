@@ -3,22 +3,27 @@ package com.example.mydrsapp.ui.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,16 +65,25 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
     Dialog dialog, dialog2, dialog3;
     Button btn_save;
     EditText editText12, editText13; //editText on add specialty and cred screen
-    String providerFName, providerLName, name, code, selected_spc, selected_cred, specialty_id, patient_id, pro_id, pro_code, pro_name, specialty_id1, spc_name, cred_name, patient_name;
+    String specialtyName, providerFName, providerLName, name, code, selected_spc, selected_cred, specialty_id, patient_id, pro_id, pro_code, pro_name, specialty_id1, specialty_id2, spc_name, cred_name, cred_name2, patient_name;
     private RequestQueue mQueue;
     private UserService userService;
     BottomNavigationView bottomNavigationView;
     boolean bottom_nav;
+    ImageView record, search, add;
+    TextView recordT, searchT, addT;
+    ConstraintLayout constrain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_page);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(Color.parseColor("#FDE583"));
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -80,15 +94,51 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
             bottom_nav = bundle.getBoolean("bottom_nav");
         }
 
+        record = findViewById(R.id.rec_np);
+        search = findViewById(R.id.sea_np);
+        add = findViewById(R.id.add_np);
+
+        recordT = findViewById(R.id.rec_text_np);
+        searchT = findViewById(R.id.sea_text_np);
+        addT = findViewById(R.id.add_text_np);
+
+        constrain = findViewById(R.id.constrain_np);
+
         //------------------------------------handle bottom navigation------------------------------
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.add_dr);
         bottomNavigationView.setItemIconTintList(null);
 
-        if (bottom_nav){
-            bottomNavigationView.setVisibility(View.VISIBLE);
-        }else {
-            bottomNavigationView.setVisibility(View.GONE);
+//        if (bottom_nav){
+//            bottomNavigationView.setVisibility(View.VISIBLE);
+//        }else {
+//            bottomNavigationView.setVisibility(View.GONE);
+//        }
+
+        if (bottom_nav) {
+//            bottomNavigationView.setVisibility(View.VISIBLE);
+
+            record.setVisibility(View.VISIBLE);
+            search.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            add.setImageDrawable(getDrawable(R.drawable.add_active));
+
+            recordT.setVisibility(View.VISIBLE);
+            searchT.setVisibility(View.VISIBLE);
+            addT.setVisibility(View.VISIBLE);
+
+            constrain.setVisibility(View.VISIBLE);
+        } else {
+//            bottomNavigationView.setVisibility(View.GONE);
+            record.setVisibility(View.GONE);
+            search.setVisibility(View.GONE);
+            add.setVisibility(View.GONE);
+
+            recordT.setVisibility(View.GONE);
+            searchT.setVisibility(View.GONE);
+            addT.setVisibility(View.GONE);
+
+            constrain.setVisibility(View.GONE);
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -150,16 +200,25 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
 
 
         Bundle bundle1 = getIntent().getExtras();
-        if (bundle1 != null){
+        if (bundle1 != null) {
             providerFName = bundle1.getString("proName");
             edit_f_name.setText(providerFName);
             providerLName = bundle1.getString("proLName");
             edit_l_name.setText(providerLName);
-
-            Log.i("",providerFName+" and " + providerLName);
-        }else{
+            specialtyName = bundle.getString("spc_name");
+            cred_name2 = bundle.getString("cred_name");
+            Log.i("", providerFName + " and " + providerLName + ".." + specialtyName);
+        } else {
 
         }
+
+        t1.setText(specialtyName);
+        t2.setText(cred_name2);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        edit_f_name.requestFocus();
+
+//        edit_l_name.requestFocus();
 
         //----------------update-api--------------------------------------------
         Retrofit retrofit = new Retrofit.Builder()
@@ -188,9 +247,9 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                         all_spc_id.add(specialty_id);
                         arrayList2.add(code);
 
-                        Log.i("specialty_name: " + i, name);
-                        Log.i("specialty_code: ", code);
-                        Log.i("specialty_id: ", specialty_id);
+//                        Log.i("specialty_name: " + i, name);
+//                        Log.i("specialty_code: ", code);
+//                        Log.i("specialty_id: ", specialty_id);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -210,6 +269,8 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onClick(View v) {
 
+
+
                 String editInput = edit_f_name.getText().toString().trim();  //New Provider First Name get String
                 String editInput1 = edit_l_name.getText().toString().trim(); //New Provider Last Name get String
                 String textInput1 = t1.getText().toString().trim(); //Select Specialty get String
@@ -217,6 +278,12 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
 
                 if (!editInput.isEmpty() && !editInput1.isEmpty() && !textInput2.isEmpty() && !textInput1.isEmpty()) {
 
+                    //---------------get credentials for selected specialty ------------
+                    for (int j = 0; j < arrayList2.size(); j++) {
+                        if (textInput1.equals(specialties.get(j))) {
+                            specialty_id1 = all_spc_id.get(j);
+                        }
+                    }
                     //----------------------------------------------------------------------------------------------------------------
                     saveUser2(createRequest2());
                     //---------------------------get all provider details-----------------------------------------------------
@@ -248,12 +315,12 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                     mQueue.add(request2);
                     //------------------------------------------------------------------------------
 
-
+                    add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
                     //----------------------saved successfully popup-------------------------------------------------------
                     AlertDialog.Builder myAlert = new AlertDialog.Builder(NewProviderActivity.this);
                     myAlert.setTitle("Saved successfully");
-                    myAlert.setMessage("Provider:\n" + "Dr. " + edit_f_name.getText().toString() + " " + edit_l_name.getText().toString() + ", " + t1.getText().toString());
-                    myAlert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    myAlert.setMessage("Provider:\n" + "Dr. " + edit_f_name.getText().toString() + " " + edit_l_name.getText().toString() + ", " + t1.getText().toString()+", "+t2.getText().toString());
+                    myAlert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             updateSetupDone();
@@ -262,9 +329,9 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                                 i.putExtra("id2", patient_id);
                                 i.putExtra("name", patient_name);
                                 startActivity(i);
-                                overridePendingTransition(0,0);
+                                overridePendingTransition(0, 0);
                                 finish();
-                            }else {
+                            } else {
                                 Intent i2 = new Intent(NewProviderActivity.this, SetupCompleteActivity.class);
                                 i2.putExtra("id", patient_id);
                                 i2.putExtra("name", patient_name);
@@ -276,6 +343,7 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                     myAlert.setNegativeButton("Add Another Provider", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            add.setImageDrawable(getDrawable(R.drawable.add_active));
                             dialog.dismiss();
                             edit_f_name.setSelection(0);
                             edit_f_name.setText("");
@@ -302,11 +370,14 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
 
                 if (!editInput.isEmpty() && !editInput1.isEmpty()) {
 
+                    add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
+
                     //-----------------------Specialty list dialog box--------------------------------------
                     dialog = new Dialog(NewProviderActivity.this);
                     dialog.setContentView(R.layout.dialog_spinner);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.show();
+                    dialog.setCancelable(false);
 
                     EditText search_edit = dialog.findViewById(R.id.edit_text); // edittext to search speciality in dialog box
                     Button btn_add = dialog.findViewById(R.id.btn_add); // Button to open dialog to add new speciality.
@@ -321,9 +392,9 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                     ListView listView1 = dialog2.findViewById(R.id.list_view1);
                     ListView listView2 = dialog2.findViewById(R.id.list_view2);
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(NewProviderActivity.this, android.R.layout.simple_list_item_1, arrayList);
-                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(NewProviderActivity.this, android.R.layout.simple_list_item_1, arrayList2);
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(NewProviderActivity.this, android.R.layout.simple_list_item_1, arrayList3);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(NewProviderActivity.this, R.layout.custom_list_row, arrayList);
+                    ArrayAdapter<String> adapter1 = new ArrayAdapter<>(NewProviderActivity.this, R.layout.custom_list_row, arrayList2);
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(NewProviderActivity.this, R.layout.custom_list_row, arrayList3);
 
                     //-------------------------------Add specialty button -------------------------------------
 
@@ -333,27 +404,35 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                         @Override
                         public void onClick(View v) {
 
+                            add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
+
                             //---------------------add specialty and cred dialog box------------------------------
                             dialog3 = new Dialog(NewProviderActivity.this);
                             dialog3.setContentView(R.layout.dialog2_spinner);
                             dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog3.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
+                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                            lp.copyFrom(dialog3.getWindow().getAttributes());
+                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.gravity = Gravity.CENTER;
                             dialog3.show();
+                            dialog3.getWindow().setAttributes(lp);
+                            dialog3.setCancelable(false);
                             //------------------------------------------------------------------------------------
 
-                            Button btn1 = dialog3.findViewById(R.id.btn_add2); // add button in add speciality screen
-                            Button btn2 = dialog3.findViewById(R.id.can_btn); // cancel button
+                            Button btn1 = dialog3.findViewById(R.id.bt123); // add button in add speciality screen
+                            Button btn2 = dialog3.findViewById(R.id.canbt); // cancel button
 
                             //---------------------------add button in add specialty dialog box---------------------------
                             btn1.setOnClickListener(new View.OnClickListener() {    //add button from dialog3
                                 @Override
                                 public void onClick(View v) {
-
-                                    editText12 = dialog3.findViewById(R.id.spec_add);
-                                    editText13 = dialog3.findViewById(R.id.cred_add);
+                                    editText12 = dialog3.findViewById(R.id.edit8);
+                                    editText13 = dialog3.findViewById(R.id.edit9);
 
                                     spc_name = editText12.getText().toString();
                                     cred_name = editText13.getText().toString();
-
                                     if (!spc_name.isEmpty() && !cred_name.isEmpty()) {
 
                                         saveUser3(createRequest3(), new OnSaveSpecialty() {
@@ -364,6 +443,8 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
 
                                                 String spcMsg = "speciality created!";
                                                 if (spc_msg1.equals(spcMsg)) {
+
+                                                    add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
 
                                                     arrayList.add(spc_name);
                                                     specialties.add(spc_name);
@@ -376,6 +457,8 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                                                     adapter1.notifyDataSetChanged();
                                                     listView1.setAdapter(adapter1);
 
+
+
                                                     //-------------------------alert for added successfully-----------------------------------
                                                     AlertDialog.Builder myAlert = new AlertDialog.Builder(NewProviderActivity.this);
                                                     myAlert.setTitle("Added successfully");
@@ -383,76 +466,84 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                                                     myAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
+
+//                                                            //----------------------------get All specialties --------------------------------------------------------------
+//                                                            String url1 = "http://65.2.3.41:8080/speciality?patient_id=" + patient_id;
+//                                                            Log.i("URL: ", url1);
+//
+//                                                            JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+//                                                                @Override
+//                                                                public void onResponse(JSONObject response1) {
+//                                                                    try {
+//                                                                        JSONArray jsonArray1 = response1.getJSONArray("data");
+//                                                                        for (int i = 0; i < jsonArray1.length(); i++) {
+//                                                                            JSONObject data1 = jsonArray1.getJSONObject(i);
+//                                                                            specialty_id = data1.getString("id");
+//                                                                            all_spc_id.add(specialty_id);
+//                                                                        }
+//
+//                                                                    } catch (JSONException e) {
+//                                                                        e.printStackTrace();
+//                                                                    }
+//                                                                }
+//                                                            }, new com.android.volley.Response.ErrorListener() {
+//                                                                @Override
+//                                                                public void onErrorResponse(VolleyError error) {
+//                                                                    error.printStackTrace();
+//                                                                }
+//                                                            });
+//                                                            mQueue.add(request1);
+//                                                            //------------------------------------------------------------------------------------------------------------------
+
+                                                            //---------------get specialty ID for selected specialty --------
                                                             dialog3.dismiss();
+
                                                             Intent intent90 = new Intent(NewProviderActivity.this, NewProviderActivity.class);
                                                             intent90.putExtra("id1", patient_id);
                                                             intent90.putExtra("name", patient_name);
                                                             intent90.putExtra("bottom_nav", bottom_nav);
+                                                            intent90.putExtra("spc_name", spc_name);
+                                                            intent90.putExtra("cred_name", cred_name);
                                                             intent90.putExtra("proName", edit_f_name.getText().toString());
                                                             intent90.putExtra("proLName", edit_l_name.getText().toString());
                                                             startActivity(intent90);
                                                             overridePendingTransition(0, 0);
                                                             finish();
+
+                                                            dialog.dismiss();
+                                                            add.setImageDrawable(getDrawable(R.drawable.add_active));
                                                         }
                                                     });
                                                     myAlert.setCancelable(false);
                                                     myAlert.show();
-                                                    dialog.dismiss();
                                                     dialog3.setCancelable(false);
                                                     Log.i("last added spc updated?", String.valueOf(arrayList));
 
                                                     //-----------------------------------------------------------------------------------------
 
+                                                    add.setImageDrawable(getDrawable(R.drawable.add_active));
+
                                                 } else {
 
+                                                    add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
                                                     AlertDialog.Builder myAlert = new AlertDialog.Builder(NewProviderActivity.this);
                                                     myAlert.setTitle("Error");
                                                     myAlert.setMessage("Already exists.");
                                                     myAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
+                                                            add.setImageDrawable(getDrawable(R.drawable.add_active));
                                                             dialog3.dismiss();
+                                                            dialog.dismiss();
                                                         }
                                                     });
                                                     myAlert.setCancelable(false);
                                                     myAlert.show();
-                                                    dialog.dismiss();
                                                     dialog3.setCancelable(false);
                                                 }
+
                                             }
                                         });
-
-                                        //new added specialty ID will create here
-
-
-                                        //----------------------------get All specialties --------------------------------------------------------------
-                                        String url1 = "http://65.2.3.41:8080/speciality?patient_id=" + patient_id;
-                                        Log.i("URL: ", url1);
-
-                                        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response1) {
-                                                try {
-                                                    JSONArray jsonArray1 = response1.getJSONArray("data");
-                                                    for (int i = 0; i < jsonArray1.length(); i++) {
-                                                        JSONObject data1 = jsonArray1.getJSONObject(i);
-                                                        specialty_id = data1.getString("id");
-                                                        all_spc_id.add(specialty_id);
-                                                    }
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        }, new com.android.volley.Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-                                                error.printStackTrace();
-                                            }
-                                        });
-                                        mQueue.add(request1);
-                                        Log.i("all spc id onAdd", String.valueOf(all_spc_id));
-                                        //------------------------------------------------------------------------------------------------------------------
-
 
                                     }
                                 }
@@ -498,15 +589,13 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                             selected_spc = t1.getText().toString();
                             Log.i("selected spc: ", selected_spc);
 
-
-
                             //---------------get credentials for selected specialty ------------
                             for (int j = 0; j < arrayList2.size(); j++) {
                                 if (selected_spc.equals(specialties.get(j))) {
                                     selected_cred = arrayList2.get(j);
-                                    specialty_id1 = all_spc_id.get(j);
+//                                    specialty_id1 = all_spc_id.get(j);
                                     Log.i("Selected Credentials", selected_cred);
-                                    Log.i("selected spc id: ", specialty_id1);
+//                                    Log.i("selected spc id: ", specialty_id1);
                                 }
                             }
                             //------------------------------------------------------------------
@@ -519,6 +608,7 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                                 t2.setText(adapter2.getItem(0));
                             }
                             dialog.dismiss();
+                            add.setImageDrawable(getDrawable(R.drawable.add_active));
 
 ////                            //------------------------------get selected specialty ID-----------------------------------------------------------
 //                            String url3 = "http://65.2.3.41:8080/speciality?patient_id=" + patient_id;
@@ -563,15 +653,19 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                 String editInput1 = edit_l_name.getText().toString().trim(); //New Provider Last Name get String
 
                 if (!editInput.isEmpty() && !editInput1.isEmpty()) {
+
+                    add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
+
                     //-----------------------------cred dialog box--------------------------------------
                     dialog2 = new Dialog(NewProviderActivity.this);
                     dialog2.setContentView(R.layout.dialog_spinner_credential);
                     dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog2.show();
+                    dialog2.setCancelable(false);
                     //----------------------------------------------------------------------------------
 
                     ListView listView2 = dialog2.findViewById(R.id.list_view2);
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(NewProviderActivity.this, android.R.layout.simple_list_item_1, arrayList3);
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(NewProviderActivity.this, R.layout.custom_list_row, arrayList3);
                     listView2.setAdapter(adapter2);
 
                     listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -579,6 +673,7 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             t2.setText(adapter2.getItem(position));
                             dialog2.dismiss();
+                            add.setImageDrawable(getDrawable(R.drawable.add_active));
                         }
                     });
                 }
@@ -596,6 +691,7 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
         providerRequest.setPatient_id(patient_id);
         Log.i("P_Id Create req2:", patient_id);
         providerRequest.setSpeciality_id(specialty_id1);
+//        Log.i("spcID on create:", specialty_id1);
         return providerRequest;
     }
     //----------------------------------------------------------------------------------------------
@@ -685,7 +781,7 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
 
     //---------------------------------update user setup_done---------------------------------------
     private void updateSetupDone() {
-        UserUpdate userUpdate = new UserUpdate("" + patient_id, patient_name, true, "paid");
+        UserUpdate userUpdate = new UserUpdate("" + patient_id, patient_name, true);
         Call<UserUpdate> call = userService.putPost("" + patient_id, userUpdate);
         call.enqueue(new Callback<UserUpdate>() {
             @Override
@@ -697,7 +793,24 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
             }
         });
     }
-    //----------------------------------------------------------------------------------------------
 
+    //----------------------------------------------------------------------------------------------
+    public void onRecordNP(View view) {
+        Intent i = new Intent(NewProviderActivity.this, RecordActivity.class);
+        i.putExtra("id2", patient_id);
+        i.putExtra("name", patient_name);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
+    }
+
+    public void onSearchNP(View view) {
+        Intent i1 = new Intent(NewProviderActivity.this, SearchActivity.class);
+        i1.putExtra("id3", patient_id);
+        i1.putExtra("name", patient_name);
+        startActivity(i1);
+        overridePendingTransition(0, 0);
+        finish();
+    }
 
 }

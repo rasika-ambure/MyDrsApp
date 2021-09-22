@@ -3,13 +3,18 @@ package com.example.mydrsapp.ui.activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,6 +69,7 @@ public class ResultForSearchByDateActivity extends AppCompatActivity {
     ArrayList nameSplit, catSplit;
     MediaPlayer mediaPlayer = null;
     boolean isPlaying = false;
+    DownloadManager manager;
 
     Dialog playerDialog;
 
@@ -111,6 +118,11 @@ public class ResultForSearchByDateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_for_search_by_date);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
+
 //        String path = this.getExternalFilesDir("/").getAbsolutePath();
 //        File directory = new File(path);
 //        allFiles = directory.listFiles();
@@ -127,6 +139,7 @@ public class ResultForSearchByDateActivity extends AppCompatActivity {
             Log.i("Patient ID Share", patientId);
             patientName = bundle.getString("name11");
             Log.i("Patient Name Share", patientName);
+
         }
         Log.i("Outside SDays ResultDR", String.valueOf(startDays));
         Log.i("Outside EDays ResultDR", String.valueOf(endDays));
@@ -686,8 +699,19 @@ public class ResultForSearchByDateActivity extends AppCompatActivity {
         });
 
         shareBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
+                //------------------------------Download audio file from url------------------------------
+                String fileName = obj.getName();
+                manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse(wavUrl);
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_AUDIOBOOKS,fileName);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                manager.enqueue(request);
+                //----------------------------------------------------------------------------------------
+
             }
         });
 
@@ -902,6 +926,15 @@ public class ResultForSearchByDateActivity extends AppCompatActivity {
             public void onFailure(Call<DeleteResponse> call, Throwable t) {
             }
         });
+    }
+
+    public void back_to_navigate(View view) {
+        Intent i = new Intent(ResultForSearchByDateActivity.this, SearchByDateRangeActivity.class);
+        i.putExtra("id", patientId);
+        i.putExtra("name", patientName);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
     }
 
 //--------------------------------------------------------------------------------------------------

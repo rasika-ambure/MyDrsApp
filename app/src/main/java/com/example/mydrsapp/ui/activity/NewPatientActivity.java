@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -37,6 +39,11 @@ public class NewPatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_patient);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(Color.parseColor("#FDE583"));
+        }
+
         first_name =findViewById(R.id.l_ed1);
         b2=findViewById(R.id.continue_new_patient);
 
@@ -53,6 +60,10 @@ public class NewPatientActivity extends AppCompatActivity {
             patient_id = bundle1.getString("id");
             Log.i("Patient ID from NO: ", patient_id);
         }
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        first_name.requestFocus();
 
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +120,7 @@ public class NewPatientActivity extends AppCompatActivity {
     };
 
     private void updatePatient() {
-        UserUpdate userUpdate = new UserUpdate(""+patient_id, Objects.requireNonNull(first_name.getText()).toString(),  false, "paid"  );
+        UserUpdate userUpdate = new UserUpdate(""+patient_id, Objects.requireNonNull(first_name.getText()).toString(),  false  );
         Call<UserUpdate> call = userService.putPost(""+patient_id, userUpdate);
         call.enqueue(new Callback<UserUpdate>() {
             @Override

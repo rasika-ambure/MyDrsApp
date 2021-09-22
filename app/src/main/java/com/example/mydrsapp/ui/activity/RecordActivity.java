@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -25,10 +26,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,14 +70,18 @@ import retrofit2.Response;
 public class RecordActivity extends AppCompatActivity {
 
     String patient_id, specialty_id, specialty_id_all, specialty_name, selected_spc_name, selected_spc_id, provider_name, patient_name, catagory_name, selected_pro_name, provider_id;
-    String selected_pro_id, selected_category_name, recordFile2, recordFile3;
+    String selected_pro_id, selected_category_name, recordFile2, recordFile3, type;
+    int recording_count;
     Button start_record_btn;
-    ImageView menu_btn;
+    ImageView proImg, wave;
+    ImageButton menu_btn;
+    //    Animation animation;
     Dialog recordingDialog, dialog, dialog2, dialog3, savingDialog, dialogAbout, dialogVision;
     TextView txt1, txt2, pro, titleButton, titleButtonVision;
     BottomNavigationView bottomNavigationView;
     ArrayList<String> category_list, lastDuration, arrayList, arrayList2, spc_array, data, spc_name, pro_name, pro_id, txt2_array, temp, selected_pro_id_array;
     private RequestQueue mQueue;
+    ConstraintLayout selectSpecialty, selectProvider;
 
     //--------------------------------Start Recording-----------------------------------------------
     int PERMISSION_CODE = 52;
@@ -109,17 +117,30 @@ public class RecordActivity extends AppCompatActivity {
     };
     //----------------------------------------------------------------------------------------------
 
+
+    ImageView record, search, add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
-        txt1 = findViewById(R.id.select_soc);
-        txt2 = findViewById(R.id.select_pro);
-        pro = findViewById(R.id.pro);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
+
+        selectSpecialty = findViewById(R.id.selectSpecialty2);
+        selectProvider = findViewById(R.id.selectProvider1);
+
+        txt1 = findViewById(R.id.select_soc1);
+        txt2 = findViewById(R.id.select_pro1);
+        pro = findViewById(R.id.pro1);
+        proImg = findViewById(R.id.proImg);
 
         txt2.setVisibility(View.GONE);
         pro.setVisibility(View.GONE);
+        proImg.setVisibility(View.GONE);
 
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
@@ -138,6 +159,9 @@ public class RecordActivity extends AppCompatActivity {
         start_record_btn.setVisibility(View.GONE);
 
         mQueue = Volley.newRequestQueue(RecordActivity.this);
+
+        record = findViewById(R.id.rec_rec);
+        record.setImageDrawable(getDrawable(R.drawable.record_active));
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -164,7 +188,7 @@ public class RecordActivity extends AppCompatActivity {
                         i1.putExtra("name", patient_name);
                         startActivity(i1);
                         overridePendingTransition(0, 0);
-                        finish();
+//                        finish();
                         return true;
 
                     case R.id.add_dr:
@@ -173,8 +197,8 @@ public class RecordActivity extends AppCompatActivity {
                         i2.putExtra("name", patient_name);
                         i2.putExtra("bottom_nav", true);
                         startActivity(i2);
-                        overridePendingTransition(0,0);
-                        finish();
+                        overridePendingTransition(0, 0);
+//                        finish();
                         return true;
 
                     case R.id.record:
@@ -242,9 +266,18 @@ public class RecordActivity extends AppCompatActivity {
                                 Log.i("array of selected spc: ", String.valueOf(data));
                                 Collections.sort(data);
                                 Log.i("sorted array : ", String.valueOf(data));
-                                for (int i = 0; i < size3 - 1; i++) {
-                                    if (data.get(i) != data.get(i + 1)) {
-                                        temp.add(data.get(i));
+                                if (size3 == 1) {
+                                    temp.add(data.get(0));
+                                } else {
+                                    for (int i = 0; i < size3 - 1; i++) {
+                                        if (data.get(i) != data.get(i + 1)) {
+                                            temp.add(data.get(i));
+                                        }
+                                    }
+                                    for (int k = 0; k < size3; k++) {
+                                        if (k == size3 - 1) {
+                                            temp.add(data.get(k));
+                                        }
                                     }
                                 }
                                 Log.i("temp array: ", String.valueOf(temp));
@@ -252,17 +285,17 @@ public class RecordActivity extends AppCompatActivity {
 
                                 //----------------------------select_specialty----------------------------------------------
 
-                                txt1.setOnClickListener(new View.OnClickListener() {
+                                selectSpecialty.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+
+                                        record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
 
                                         dialog = new Dialog(RecordActivity.this);
                                         dialog.setContentView(R.layout.dialog_selected_specialty);
                                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                        dialog.show();
-
                                         ListView listView = dialog.findViewById(R.id.selected_list);
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(RecordActivity.this, android.R.layout.simple_list_item_1, temp);
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(RecordActivity.this, R.layout.custom_list_row, temp);
                                         listView.setAdapter(adapter);
 
                                         dialog2 = new Dialog(RecordActivity.this);
@@ -270,12 +303,17 @@ public class RecordActivity extends AppCompatActivity {
                                         dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                                         ListView listView2 = dialog2.findViewById(R.id.selected_provider_list);
-                                        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(RecordActivity.this, android.R.layout.simple_list_item_1, txt2_array);
+                                        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(RecordActivity.this, R.layout.custom_list_row, txt2_array);
                                         listView2.setAdapter(adapter2);
+
+                                        dialog.show();
+                                        dialog.setCancelable(false);
 
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+//                                                record.setImageDrawable(getDrawable(R.drawable.record_active));
 
                                                 txt1.setText(adapter.getItem(position));
                                                 txt1.setTextColor(Color.parseColor("#0272B9"));
@@ -283,6 +321,7 @@ public class RecordActivity extends AppCompatActivity {
 
                                                 txt2.setVisibility(View.VISIBLE);
                                                 pro.setVisibility(View.VISIBLE);
+                                                proImg.setVisibility(View.VISIBLE);
 
                                                 //---------------get specialty id of selected specialty ------------
                                                 for (int i = 0; i < size2; i++) {
@@ -307,6 +346,9 @@ public class RecordActivity extends AppCompatActivity {
                                                 Log.i("selected_pro_id array:", String.valueOf(selected_pro_id_array));
                                                 int count = adapter2.getCount();
                                                 if (count == 1) {
+
+                                                    record.setImageDrawable(getDrawable(R.drawable.record_active));
+
                                                     txt2.setText(adapter2.getItem(0));
                                                     selected_pro_name = adapter2.getItem(0);
                                                     selected_pro_id = selected_pro_id_array.get(0);
@@ -316,6 +358,9 @@ public class RecordActivity extends AppCompatActivity {
                                                     start_record_btn.setVisibility(View.VISIBLE);
                                                     start_record_btn.setTextColor(Color.parseColor("#0272B9"));
                                                 } else if (count > 1) {
+
+                                                    record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
+
                                                     //---------------------------------select_provider------------------------------------------
                                                     txt2.setText("");
                                                     dialog2 = new Dialog(RecordActivity.this);
@@ -324,7 +369,7 @@ public class RecordActivity extends AppCompatActivity {
                                                     dialog2.show();
 
                                                     ListView listView2 = dialog2.findViewById(R.id.selected_provider_list);
-                                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(RecordActivity.this, android.R.layout.simple_list_item_1, txt2_array);
+                                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(RecordActivity.this, R.layout.custom_list_row, txt2_array);
                                                     listView2.setAdapter(adapter2);
 
                                                     int count2 = adapter2.getCount();
@@ -333,6 +378,9 @@ public class RecordActivity extends AppCompatActivity {
                                                     listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                         @Override
                                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                            record.setImageDrawable(getDrawable(R.drawable.record_active));
+
                                                             txt2.setText(adapter2.getItem(position));
                                                             selected_pro_name = adapter2.getItem(position);
                                                             selected_pro_id = selected_pro_id_array.get(position);
@@ -347,16 +395,20 @@ public class RecordActivity extends AppCompatActivity {
                                                     dialog2.setCancelable(false);
 //
 //                                                    start_record_btn.setVisibility(View.GONE);
-                                                    txt2.setOnClickListener(new View.OnClickListener() {
+                                                    selectProvider.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
+
+                                                            record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
+
                                                             dialog2 = new Dialog(RecordActivity.this);
                                                             dialog2.setContentView(R.layout.dialog_selected_provider);
                                                             dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                                             dialog2.show();
+                                                            dialog2.setCancelable(false);
 
                                                             ListView listView2 = dialog2.findViewById(R.id.selected_provider_list);
-                                                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(RecordActivity.this, android.R.layout.simple_list_item_1, txt2_array);
+                                                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(RecordActivity.this, R.layout.custom_list_row, txt2_array);
                                                             listView2.setAdapter(adapter2);
 
                                                             int count2 = adapter2.getCount();
@@ -365,6 +417,9 @@ public class RecordActivity extends AppCompatActivity {
                                                             listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                                 @Override
                                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                                    record.setImageDrawable(getDrawable(R.drawable.record_active));
+
                                                                     txt2.setText(adapter2.getItem(position));
                                                                     selected_pro_name = adapter2.getItem(position);
                                                                     selected_pro_id = selected_pro_id_array.get(position);
@@ -428,182 +483,447 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String ip1 = txt1.getText().toString().trim();
-                String ip2 = txt2.getText().toString().trim();
+                //----------------------------get patient details --------------------------------------------------------------
+                String url1 = "http://65.2.3.41:8080/patient?id=" + patient_id;
+                Log.i("URL: ", url1);
 
-                if (!ip1.isEmpty() && !ip2.isEmpty()) {
+                JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response1) {
+                        try {
+                            JSONObject data = response1.getJSONObject("data");
+                            type = data.getString("type");
+                            Log.i("type", type);
+                            recording_count = data.getInt("recording_count");
+                            Log.i("recording_count", String.valueOf(recording_count));
 
-                    if (checkPermission()) {
-                        recordingDialog = new Dialog(RecordActivity.this);
-                        recordingDialog.setContentView(R.layout.dialog_two_part_consent);
-                        recordingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        WindowManager.LayoutParams lp4 = new WindowManager.LayoutParams();
-                        lp4.copyFrom(recordingDialog.getWindow().getAttributes());
-                        lp4.width = WindowManager.LayoutParams.MATCH_PARENT;
-                        lp4.height = WindowManager.LayoutParams.MATCH_PARENT;
-                        recordingDialog.show();
-                        recordingDialog.getWindow().setAttributes(lp4);
+                            String free = "free";
 
-                        Button agreed = recordingDialog.findViewById(R.id.agreed);
-                        Button declined = recordingDialog.findViewById(R.id.declined);
-                        agreed.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                            if (type.equals(free)) {
+                                if (recording_count < 10) {
 
-                                dialog3 = new Dialog(RecordActivity.this);
-                                dialog3.setContentView(R.layout.dialog_recording);
-                                dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    String ip1 = txt1.getText().toString().trim();
+                                    String ip2 = txt2.getText().toString().trim();
 
-                                WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
-                                lp2.copyFrom(dialog3.getWindow().getAttributes());
-                                lp2.width = WindowManager.LayoutParams.MATCH_PARENT;
-                                lp2.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                    if (!ip1.isEmpty() && !ip2.isEmpty()) {
 
-                                recordBtn = dialog3.findViewById(R.id.record_btn);
-                                changeStatus = dialog3.findViewById(R.id.change);
-                                chronometer = dialog3.findViewById(R.id.chronometer);
-                                dialog3.show();
-                                dialog3.getWindow().setAttributes(lp2);
-                                startRecording();
-                                startTimer();
+                                        if (checkPermission()) {
 
-                                Button doneOnRec = dialog3.findViewById(R.id.doneOnRec);
-                                doneOnRec.setOnClickListener(new View.OnClickListener() {
-                                    @RequiresApi(api = Build.VERSION_CODES.N)
-                                    @Override
-                                    public void onClick(View v) {
-                                        pauseRecording();
-                                        stopTimer();
+                                            record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
 
-                                        String last = chronometer.getText().toString();
-                                        Log.i("Last Time", last);
+                                            recordingDialog = new Dialog(RecordActivity.this);
+                                            recordingDialog.setContentView(R.layout.dialog_two_part_consent);
+                                            recordingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                            WindowManager.LayoutParams lp4 = new WindowManager.LayoutParams();
+                                            lp4.copyFrom(recordingDialog.getWindow().getAttributes());
+                                            lp4.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                            lp4.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                            recordingDialog.show();
+                                            recordingDialog.getWindow().setAttributes(lp4);
 
-                                        String[] due = last.split(":", 8);
+                                            Button agreed = recordingDialog.findViewById(R.id.agreed);
+                                            Button declined = recordingDialog.findViewById(R.id.declined);
+                                            agreed.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
 
-                                        for (String lastDue : due) {
-                                            lastDuration.add(lastDue);
+                                                    recordingDialog.dismiss();
+
+                                                    record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
+
+                                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
+                                                    myAlert.setTitle("Recording Tip");
+                                                    myAlert.setMessage(" position your phone between you and your provider for best recording quality.");
+                                                    myAlert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog3 = new Dialog(RecordActivity.this);
+                                                            dialog3.setContentView(R.layout.dialog_recording);
+                                                            dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                                                            WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
+                                                            lp2.copyFrom(dialog3.getWindow().getAttributes());
+                                                            lp2.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                                            lp2.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+                                                            recordBtn = dialog3.findViewById(R.id.record_btn);
+                                                            changeStatus = dialog3.findViewById(R.id.change);
+                                                            chronometer = dialog3.findViewById(R.id.chronometer);
+//                                                            wave = findViewById(R.id.waveImg);
+//                                                            animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom);
+//                                                            wave.startAnimation(animation);
+                                                            dialog3.show();
+                                                            dialog3.getWindow().setAttributes(lp2);
+                                                            startRecording();
+                                                            startTimer();
+
+                                                            Button doneOnRec = dialog3.findViewById(R.id.doneOnRec);
+                                                            doneOnRec.setOnClickListener(new View.OnClickListener() {
+                                                                @RequiresApi(api = Build.VERSION_CODES.N)
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    pauseRecording();
+                                                                    stopTimer();
+
+                                                                    String last = chronometer.getText().toString();
+                                                                    Log.i("Last Time", last);
+
+                                                                    String[] due = last.split(":", 8);
+
+                                                                    for (String lastDue : due) {
+                                                                        lastDuration.add(lastDue);
+                                                                    }
+                                                                    String min = (String) lastDuration.get(0);
+                                                                    String sec = (String) lastDuration.get(1);
+
+                                                                    Log.i("Last Duration in min", min);
+                                                                    Log.i("Last Duration in sec", sec);
+                                                                    Log.i("Last Duration all", String.valueOf(lastDuration));
+
+                                                                    int min1 = Integer.parseInt(min);
+                                                                    Log.i("hr1", String.valueOf(min1));
+
+                                                                    int sec1 = Integer.parseInt(sec);
+                                                                    Log.i("hr1", String.valueOf(sec1));
+
+                                                                    duration = (min1 * 60) + sec1;
+
+                                                                    Log.i("Total Seconds", String.valueOf(duration));
+
+                                                                    savingDialog = new Dialog(RecordActivity.this);
+                                                                    savingDialog.setContentView(R.layout.dialog_saving);
+                                                                    WindowManager.LayoutParams lp8 = new WindowManager.LayoutParams();
+                                                                    lp8.copyFrom(savingDialog.getWindow().getAttributes());
+                                                                    lp8.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                                                    lp8.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                                                    savingDialog.show();
+                                                                    savingDialog.getWindow().setAttributes(lp8);
+                                                                    savingDialog.setCancelable(false);
+
+                                                                    select = savingDialog.findViewById(R.id.general);
+
+                                                                    category_list.add("General");
+                                                                    category_list.add("Diagnosis");
+                                                                    category_list.add("Medication");
+                                                                    category_list.add("Tests");
+
+                                                                    ListView generalList = savingDialog.findViewById(R.id.general_list);
+                                                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(RecordActivity.this, R.layout.custom_list_row, category_list);
+
+                                                                    select.setText(adapter.getItem(0));
+                                                                    catagory_name = adapter.getItem(0);
+                                                                    generalList.setAdapter(adapter);
+
+                                                                    generalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                                        @Override
+                                                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                                                            select.setText(adapter.getItem(i));
+                                                                            selected_category_name = adapter.getItem(i);
+                                                                            Log.i("selected category: ", selected_category_name);
+                                                                        }
+                                                                    });
+
+                                                                    Button save_rec = savingDialog.findViewById(R.id.save_dialog);
+                                                                    save_rec.setOnClickListener(new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View v) {
+
+                                                                            if (selected_category_name == null) {
+                                                                                selected_category_name = "general";
+                                                                            } else {
+                                                                                Log.i("selected category save", selected_category_name);
+                                                                                savingDialog.setCancelable(false);
+                                                                                mediaRecorder.stop();
+                                                                                resetTimer();
+                                                                                mediaRecorder = null;
+
+                                                                                recordFile = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + "null" + ".mp3";
+                                                                                String recordFileName = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + selected_category_name + ".mp3";
+
+                                                                                File directory = new File(RecordActivity.this.getExternalFilesDir("/").getAbsolutePath());
+                                                                                File from = new File(directory, String.valueOf(recordFile));
+                                                                                File to = new File(directory, recordFileName);
+                                                                                from.renameTo(to);
+                                                                                Log.i("Directory is", directory.toString());
+                                                                                Log.i("From path is", from.toString());
+                                                                                Log.i("To path is", to.toString());
+
+                                                                                saveRecording(createRecording());
+
+                                                                                AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
+                                                                                myAlert.setTitle("Saved Successfully");
+                                                                                myAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                                        savingDialog.dismiss();
+//                                                            to.delete();
+                                                                                        dialog3.dismiss();
+                                                                                        Intent i1 = new Intent(RecordActivity.this, SearchActivity.class);
+                                                                                        i1.putExtra("id3", patient_id);
+                                                                                        i1.putExtra("name", patient_name);
+                                                                                        startActivity(i1);
+                                                                                        overridePendingTransition(0, 0);
+                                                                                        finish();
+                                                                                    }
+                                                                                });
+                                                                                myAlert.setCancelable(false);
+                                                                                myAlert.show();
+                                                                            }
+                                                                        }
+
+                                                                    });
+                                                                }
+                                                            });
+
+                                                            dialog3.setCancelable(false);
+                                                        }
+                                                    });
+                                                    myAlert.show();
+                                                    myAlert.setCancelable(false);
+                                                }
+                                            });
+                                            declined.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    record.setImageDrawable(getDrawable(R.drawable.record_active));
+                                                    recordingDialog.dismiss();
+                                                }
+                                            });
+                                        } else {
+                                            ActivityCompat.requestPermissions(RecordActivity.this, new String[]{recordPermission}, PERMISSION_CODE);
                                         }
-                                        String min = (String) lastDuration.get(0);
-                                        String sec = (String) lastDuration.get(1);
 
-                                        Log.i("Last Duration in min", min);
-                                        Log.i("Last Duration in sec", sec);
-                                        Log.i("Last Duration all", String.valueOf(lastDuration));
+                                    }
+                                } else if (recording_count == 10) {
 
-                                        int min1 = Integer.parseInt(min);
-                                        Log.i("hr1", String.valueOf(min1));
+                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
+                                    myAlert.setTitle("This complimentary version of MyDrsOrders allows 10 recordings");
+                                    myAlert.setPositiveButton("Enter PSI Code", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent psi = new Intent(RecordActivity.this, PSIPinActivity.class);
+                                            psi.putExtra("id", patient_id);
+                                            psi.putExtra("name", patient_name);
+                                            startActivity(psi);
+                                            finish();
+                                        }
+                                    });
+                                    myAlert.setNegativeButton("Buy Subscription", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent i = new Intent(RecordActivity.this, SubscribeActivity.class);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    });
+                                    myAlert.show();
+                                }
+                            } else {
 
-                                        int sec1 = Integer.parseInt(sec);
-                                        Log.i("hr1", String.valueOf(sec1));
+                                String ip1 = txt1.getText().toString().trim();
+                                String ip2 = txt2.getText().toString().trim();
 
-                                        duration = (min1 * 60) + sec1;
+                                if (!ip1.isEmpty() && !ip2.isEmpty()) {
 
-                                        Log.i("Total Seconds", String.valueOf(duration));
+                                    if (checkPermission()) {
+                                        record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
+                                        recordingDialog = new Dialog(RecordActivity.this);
+                                        recordingDialog.setContentView(R.layout.dialog_two_part_consent);
+                                        recordingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                        WindowManager.LayoutParams lp4 = new WindowManager.LayoutParams();
+                                        lp4.copyFrom(recordingDialog.getWindow().getAttributes());
+                                        lp4.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                        lp4.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                        recordingDialog.show();
+                                        recordingDialog.getWindow().setAttributes(lp4);
 
-                                        savingDialog = new Dialog(RecordActivity.this);
-                                        savingDialog.setContentView(R.layout.dialog_saving);
-                                        WindowManager.LayoutParams lp8 = new WindowManager.LayoutParams();
-                                        lp8.copyFrom(savingDialog.getWindow().getAttributes());
-                                        lp8.width = WindowManager.LayoutParams.MATCH_PARENT;
-                                        lp8.height = WindowManager.LayoutParams.MATCH_PARENT;
-                                        savingDialog.show();
-                                        savingDialog.getWindow().setAttributes(lp8);
-                                        savingDialog.setCancelable(false);
-
-                                        select = savingDialog.findViewById(R.id.general);
-
-                                        category_list.add("General");
-                                        category_list.add("Diagnosis");
-                                        category_list.add("Medication");
-                                        category_list.add("Tests");
-
-                                        ListView generalList = savingDialog.findViewById(R.id.general_list);
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(RecordActivity.this, android.R.layout.simple_selectable_list_item, category_list);
-
-                                        select.setText(adapter.getItem(0));
-                                        catagory_name = adapter.getItem(0);
-                                        generalList.setAdapter(adapter);
-
-                                        generalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                                select.setText(adapter.getItem(i));
-                                                selected_category_name = adapter.getItem(i);
-                                                Log.i("selected category: ", selected_category_name);
-                                            }
-                                        });
-
-                                        Button save_rec = savingDialog.findViewById(R.id.save_dialog);
-                                        save_rec.setOnClickListener(new View.OnClickListener() {
+                                        Button agreed = recordingDialog.findViewById(R.id.agreed);
+                                        Button declined = recordingDialog.findViewById(R.id.declined);
+                                        agreed.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
 
-                                                if (selected_category_name == null) {
-                                                    selected_category_name = "general";
-                                                } else {
-                                                    Log.i("selected category save", selected_category_name);
-                                                    savingDialog.setCancelable(false);
-                                                    mediaRecorder.stop();
-                                                    resetTimer();
-                                                    mediaRecorder = null;
+                                                recordingDialog.dismiss();
+                                                record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
+                                                AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
+                                                myAlert.setTitle("Recording Tip");
+                                                myAlert.setMessage(" position your phone between you and your provider for best recording quality.");
+                                                myAlert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog3 = new Dialog(RecordActivity.this);
+                                                        dialog3.setContentView(R.layout.dialog_recording);
+                                                        dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                                                    recordFile = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + "null" + ".mp3";
-                                                    String recordFileName = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + selected_category_name+".mp3";
+                                                        WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
+                                                        lp2.copyFrom(dialog3.getWindow().getAttributes());
+                                                        lp2.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                                        lp2.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-                                                    File directory = new File(RecordActivity.this.getExternalFilesDir("/").getAbsolutePath());
-                                                    File from      = new File(directory, String.valueOf(recordFile));
-                                                    File to        = new File(directory, recordFileName);
-                                                    from.renameTo(to);
-                                                    Log.i("Directory is", directory.toString());
-                                                    Log.i("From path is", from.toString());
-                                                    Log.i("To path is", to.toString());
+                                                        recordBtn = dialog3.findViewById(R.id.record_btn);
+                                                        changeStatus = dialog3.findViewById(R.id.change);
+                                                        chronometer = dialog3.findViewById(R.id.chronometer);
+                                                        dialog3.show();
+                                                        dialog3.getWindow().setAttributes(lp2);
+                                                        startRecording();
+                                                        startTimer();
 
-                                                    saveRecording(createRecording());
+                                                        Button doneOnRec = dialog3.findViewById(R.id.doneOnRec);
+                                                        doneOnRec.setOnClickListener(new View.OnClickListener() {
+                                                            @RequiresApi(api = Build.VERSION_CODES.N)
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                pauseRecording();
+                                                                stopTimer();
 
-                                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
-                                                    myAlert.setTitle("Saved Successfully");
-                                                    myAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            savingDialog.dismiss();
+                                                                String last = chronometer.getText().toString();
+                                                                Log.i("Last Time", last);
+
+                                                                String[] due = last.split(":", 8);
+
+                                                                for (String lastDue : due) {
+                                                                    lastDuration.add(lastDue);
+                                                                }
+                                                                String min = (String) lastDuration.get(0);
+                                                                String sec = (String) lastDuration.get(1);
+
+                                                                Log.i("Last Duration in min", min);
+                                                                Log.i("Last Duration in sec", sec);
+                                                                Log.i("Last Duration all", String.valueOf(lastDuration));
+
+                                                                int min1 = Integer.parseInt(min);
+                                                                Log.i("hr1", String.valueOf(min1));
+
+                                                                int sec1 = Integer.parseInt(sec);
+                                                                Log.i("hr1", String.valueOf(sec1));
+
+                                                                duration = (min1 * 60) + sec1;
+
+                                                                Log.i("Total Seconds", String.valueOf(duration));
+
+                                                                savingDialog = new Dialog(RecordActivity.this);
+                                                                savingDialog.setContentView(R.layout.dialog_saving);
+                                                                WindowManager.LayoutParams lp8 = new WindowManager.LayoutParams();
+                                                                lp8.copyFrom(savingDialog.getWindow().getAttributes());
+                                                                lp8.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                                                lp8.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                                                savingDialog.show();
+                                                                savingDialog.getWindow().setAttributes(lp8);
+                                                                savingDialog.setCancelable(false);
+
+                                                                select = savingDialog.findViewById(R.id.general);
+
+                                                                category_list.add("General");
+                                                                category_list.add("Diagnosis");
+                                                                category_list.add("Medication");
+                                                                category_list.add("Tests");
+
+                                                                ListView generalList = savingDialog.findViewById(R.id.general_list);
+                                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(RecordActivity.this, R.layout.custom_list_row, category_list);
+
+                                                                select.setText(adapter.getItem(0));
+                                                                catagory_name = adapter.getItem(0);
+                                                                generalList.setAdapter(adapter);
+
+                                                                generalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                                    @Override
+                                                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                                                        select.setText(adapter.getItem(i));
+                                                                        selected_category_name = adapter.getItem(i);
+                                                                        Log.i("selected category: ", selected_category_name);
+                                                                    }
+                                                                });
+
+                                                                Button save_rec = savingDialog.findViewById(R.id.save_dialog);
+                                                                save_rec.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+
+                                                                        if (selected_category_name == null) {
+                                                                            selected_category_name = "general";
+                                                                        } else {
+                                                                            Log.i("selected category save", selected_category_name);
+                                                                            savingDialog.setCancelable(false);
+                                                                            mediaRecorder.stop();
+                                                                            resetTimer();
+                                                                            mediaRecorder = null;
+
+                                                                            recordFile = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + "null" + ".mp3";
+                                                                            String recordFileName = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + selected_category_name + ".mp3";
+
+                                                                            File directory = new File(RecordActivity.this.getExternalFilesDir("/").getAbsolutePath());
+                                                                            File from = new File(directory, String.valueOf(recordFile));
+                                                                            File to = new File(directory, recordFileName);
+                                                                            from.renameTo(to);
+                                                                            Log.i("Directory is", directory.toString());
+                                                                            Log.i("From path is", from.toString());
+                                                                            Log.i("To path is", to.toString());
+
+                                                                            saveRecording(createRecording());
+
+                                                                            AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
+                                                                            myAlert.setTitle("Saved Successfully");
+                                                                            myAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                                    savingDialog.dismiss();
 //                                                            to.delete();
-                                                            dialog3.dismiss();
-                                                            Intent i1 = new Intent(RecordActivity.this, SearchActivity.class);
-                                                            i1.putExtra("id3", patient_id);
-                                                            i1.putExtra("name", patient_name);
-                                                            startActivity(i1);
-                                                            overridePendingTransition(0, 0);
-                                                            finish();
-                                                        }
-                                                    });
-                                                    myAlert.setCancelable(false);
-                                                    myAlert.show();
-                                                }
+                                                                                    dialog3.dismiss();
+                                                                                    Intent i1 = new Intent(RecordActivity.this, SearchActivity.class);
+                                                                                    i1.putExtra("id3", patient_id);
+                                                                                    i1.putExtra("name", patient_name);
+                                                                                    startActivity(i1);
+                                                                                    overridePendingTransition(0, 0);
+                                                                                    finish();
+                                                                                }
+                                                                            });
+                                                                            myAlert.setCancelable(false);
+                                                                            myAlert.show();
+                                                                        }
+                                                                    }
+
+                                                                });
+                                                            }
+                                                        });
+
+                                                        dialog3.setCancelable(false);
+                                                    }
+                                                });
+                                                myAlert.show();
+                                                myAlert.setCancelable(false);
                                             }
-
                                         });
+                                        declined.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                record.setImageDrawable(getDrawable(R.drawable.record_active));
+                                                recordingDialog.dismiss();
+                                            }
+                                        });
+                                    } else {
+                                        ActivityCompat.requestPermissions(RecordActivity.this, new String[]{recordPermission}, PERMISSION_CODE);
                                     }
-                                });
 
-                                dialog3.setCancelable(false);
+                                }
                             }
-                        });
-                       declined.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            recordingDialog.dismiss();
-                        }
-                    });
-                    } else {
-                        ActivityCompat.requestPermissions(RecordActivity.this, new String[]{recordPermission}, PERMISSION_CODE);
-                    }
 
-                }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+                mQueue.add(request1);
+                //------------------------------------------------------------------------------------------------------------------
             }
         });
         //------------------------------------------------------------------------------------------
 
-        menu_btn = findViewById(R.id.menu_btn);
+        menu_btn = findViewById(R.id.back_button1);
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -706,12 +1026,14 @@ public class RecordActivity extends AppCompatActivity {
     public void PausePlay(View view) {
 
         if (isRecording) {
+//            wave.clearAnimation();
             resumeRecording();
             startTimer();
             recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.pause_btn, null));
             changeStatus.setText("Pause Recording");
             isRecording = false;
         } else {
+//            wave.startAnimation(animation);
             pauseRecording();
             stopTimer();
             recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.resume_btn, null));
@@ -765,6 +1087,7 @@ public class RecordActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void pauseRecording() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            wave.clearAnimation();
             mediaRecorder.pause();
         }
     }
@@ -772,6 +1095,7 @@ public class RecordActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void resumeRecording() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            wave.startAnimation(animation);
             mediaRecorder.resume();
         }
     }
@@ -783,10 +1107,6 @@ public class RecordActivity extends AppCompatActivity {
             return false;
         }
         return checkPermission();
-    }
-
-    public void Done(View view) {
-
     }
 
     private void startTimer() {
@@ -853,6 +1173,8 @@ public class RecordActivity extends AppCompatActivity {
             public void onResponse(Call<RecordResponse> call, Response<RecordResponse> response) {
                 RecordResponse recordResponse = response.body();
                 String id = recordResponse.getData().getId();
+                String msg = recordResponse.getMessage();
+                Log.i("msg:", msg);
                 Log.i("Created rec id: ", id);
                 uploadRecording1(id);
             }
@@ -867,7 +1189,7 @@ public class RecordActivity extends AppCompatActivity {
 
     private void uploadRecording1(String id) {
 
-        recordFile3 = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + selected_category_name+".mp3";
+        recordFile3 = patient_name + "-" + selected_spc_name + "-" + selected_pro_name + "-" + selected_category_name + ".mp3";
         Log.i("recordFile3: ", recordFile3);
         File file = new File(getExternalFilesDir("/").getAbsolutePath(), recordFile3);
 
@@ -886,5 +1208,22 @@ public class RecordActivity extends AppCompatActivity {
             public void onFailure(Call<UploadResponse> call, Throwable t) {
             }
         });
+    }
+
+    public void onAdd(View view) {
+        Intent i1 = new Intent(RecordActivity.this, NewProviderActivity.class);
+        i1.putExtra("id1", patient_id);
+        i1.putExtra("name", patient_name);
+        i1.putExtra("bottom_nav", true);
+        startActivity(i1);
+        overridePendingTransition(0, 0);
+    }
+
+    public void onSearch(View view) {
+        Intent i2 = new Intent(RecordActivity.this, SearchActivity.class);
+        i2.putExtra("id3", patient_id);
+        i2.putExtra("name", patient_name);
+        startActivity(i2);
+        overridePendingTransition(0, 0);
     }
 }

@@ -1,4 +1,5 @@
 package com.example.mydrsapp.services;
+import com.example.mydrsapp.model.TypeUpdate;
 import com.example.mydrsapp.model.UserRequest;
 import com.example.mydrsapp.model.UserResponse;
 import com.example.mydrsapp.model.UserUpdate;
@@ -15,4 +16,7 @@ public interface UserService {
 
     @PUT("/patient")
     Call<UserUpdate> putPost(@Query("id") String id, @Body UserUpdate userUpdate);
+
+    @PUT("/patient")
+    Call<TypeUpdate> putType(@Query("id") String id, @Body TypeUpdate typeUpdate);
 }

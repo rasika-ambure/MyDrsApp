@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,10 +13,12 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,6 +42,8 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
     Dialog dialog, dialog2;
     TextView txt1, txt2, pro;
     Button continue1;
+    ImageView proImg;
+    ConstraintLayout selectSpecialty, selectProvider;
 
     ArrayList<String> arrayList, arrayList2, spc_array, data, spc_name, pro_name, txt2_array, temp;
     private RequestQueue mQueue;
@@ -47,6 +52,11 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_by_specialist);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setNavigationBarColor(Color.parseColor("#0272B9"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
 
         continue1 = findViewById(R.id.search_spec);
         Bundle bundle = getIntent().getExtras();
@@ -61,12 +71,17 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
 
 //----------------------------------- Specialty ----------------------------------------------------
 
-        txt1 = findViewById(R.id.select_soc_specialty);
-        txt2 = findViewById(R.id.select_pro_specialty);
-        pro = findViewById(R.id.pro_specialty);
+        selectSpecialty = findViewById(R.id.selectSpecialty2);
+        selectProvider = findViewById(R.id.selectProvider1);
+
+        txt1 = findViewById(R.id.select_soc1);
+        txt2 = findViewById(R.id.select_pro1);
+        pro = findViewById(R.id.pro1);
+        proImg = findViewById(R.id.proImg);
 
         txt2.setVisibility(View.GONE);
         pro.setVisibility(View.GONE);
+        proImg.setVisibility(View.GONE);
 
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
@@ -133,16 +148,25 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
                                 int size3 = data.size();
                                 Log.i("array of selected spc: ", String.valueOf(data));
                                 Collections.sort(data);
-                                for (int i = 0; i < size3 - 1; i++) {
-                                    if (data.get(i) != data.get(i + 1)) {
-                                        temp.add(data.get(i));
+                                if (size3==1){
+                                    temp.add(data.get(0));
+                                }else {
+                                    for (int i = 0; i < size3-1; i++) {
+                                        if (data.get(i) != data.get(i + 1)) {
+                                            temp.add(data.get(i));
+                                        }
+                                    }
+                                    for (int k = 0; k< size3; k++) {
+                                        if (k==size3-1) {
+                                            temp.add(data.get(k));
+                                        }
                                     }
                                 }
                                 //------------------------------------------------------------------
 
                                 //----------------------------select_specialty----------------------------------------------
 
-                                txt1.setOnClickListener(new View.OnClickListener() {
+                                selectSpecialty.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
 
@@ -159,7 +183,7 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
 //                                        dialog.getWindow().setAttributes(lp5);
 
                                         ListView listView = dialog.findViewById(R.id.selected_list);
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchBySpecialistActivity.this, android.R.layout.simple_list_item_1, temp);
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchBySpecialistActivity.this, R.layout.custom_list_row, temp);
                                         listView.setAdapter(adapter);
 
                                         dialog2 = new Dialog(SearchBySpecialistActivity.this);
@@ -167,7 +191,7 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
                                         dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                                         ListView listView2 = dialog2.findViewById(R.id.selected_provider_list);
-                                        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(SearchBySpecialistActivity.this, android.R.layout.simple_list_item_1, txt2_array);
+                                        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(SearchBySpecialistActivity.this, R.layout.custom_list_row, txt2_array);
                                         listView2.setAdapter(adapter2);
 
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -178,8 +202,11 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
                                                 Log.i("List1 SpecialtyName", adapter.getItem(position));
 
                                                 txt1.setTextColor(getResources().getColor(R.color.selected_blue));
+
                                                 txt2.setVisibility(View.VISIBLE);
                                                 pro.setVisibility(View.VISIBLE);
+                                                proImg.setVisibility(View.VISIBLE);
+
                                                 selected_spc_name = txt1.getText().toString();
 
                                                 //---------------get specialty id of selected specialty ------------
@@ -224,7 +251,7 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
 //                                                    dialog2.getWindow().setAttributes(lp6);
 
                                                     ListView listView2 = dialog2.findViewById(R.id.selected_provider_list);
-                                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(SearchBySpecialistActivity.this, android.R.layout.simple_list_item_1, txt2_array);
+                                                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(SearchBySpecialistActivity.this, R.layout.custom_list_row, txt2_array);
                                                     listView2.setAdapter(adapter2);
 
                                                     int count2 = adapter2.getCount();
@@ -242,7 +269,7 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
                                                         }
                                                     });
 
-                                                    txt2.setOnClickListener(new View.OnClickListener() {
+                                                    selectProvider.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
                                                             dialog2 = new Dialog(SearchBySpecialistActivity.this);
@@ -258,7 +285,7 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
                                                             dialog2.getWindow().setAttributes(lp6);
 
                                                             ListView listView2 = dialog2.findViewById(R.id.selected_provider_list);
-                                                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(SearchBySpecialistActivity.this, android.R.layout.simple_list_item_1, txt2_array);
+                                                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(SearchBySpecialistActivity.this, R.layout.custom_list_row, txt2_array);
                                                             listView2.setAdapter(adapter2);
 
                                                             int count2 = adapter2.getCount();
@@ -336,7 +363,7 @@ public class SearchBySpecialistActivity extends AppCompatActivity {
                     i2.putExtra("name10", name);
                     startActivity(i2);
                     overridePendingTransition(0, 0);
-                    finish();
+//                    finish();
                 }
             }
         });

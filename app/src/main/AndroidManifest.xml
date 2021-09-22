@@ -5,9 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -19,27 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDrsApp"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ui.activity.SearchBySpecialistActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-
-        <activity android:name=".ui.activity.ResultForSpecialtyActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-
-        <activity android:name=".ui.activity.ResultForSearchByDateActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-
-        <activity android:name=".ui.activity.SearchByDateRangeActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-
-        <activity android:name=".ui.activity.LastThreeRecordingsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.SubscribeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.SearchBySpecialistActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.activity.ResultForSpecialtyActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.activity.ResultForSearchByDateActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.activity.SearchByDateRangeActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ui.activity.LastThreeRecordingsActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ui.activity.ViewAllRecActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity
-            android:name=".ui.activity.AddDrActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ui.activity.SearchActivity"
