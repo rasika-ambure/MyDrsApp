@@ -533,7 +533,7 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             add.setImageDrawable(getDrawable(R.drawable.add_active));
-                                                            dialog3.dismiss();
+//                                                            dialog3.dismiss();
                                                             dialog.dismiss();
                                                         }
                                                     });

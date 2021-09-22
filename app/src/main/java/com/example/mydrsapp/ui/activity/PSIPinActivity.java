@@ -131,12 +131,12 @@ public class PSIPinActivity extends AppCompatActivity {
                                 });
                                 myAlert.setCancelable(false);
                                 myAlert.show();
-                            }else {
+                            }else if (patient_name.length()==0) {
                                 //-----------------------------alert for invalid psi----------------------------------
                                 AlertDialog.Builder myAlert = new AlertDialog.Builder(PSIPinActivity.this);
                                 myAlert.setTitle("Invalid PSI Portal PIN");
 //                                myAlert.setMessage("Please enter a valid PSI Portal PIN");
-                                if (patient_name.length()==0) {
+
                                     myAlert.setPositiveButton("Re-Enter PSI portal PIN", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -200,7 +200,6 @@ public class PSIPinActivity extends AppCompatActivity {
                                     });
 
                                 }
-                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();

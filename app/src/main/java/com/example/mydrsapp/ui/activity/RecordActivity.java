@@ -747,7 +747,7 @@ public class RecordActivity extends AppCompatActivity {
                                                 record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
                                                 AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
                                                 myAlert.setTitle("Recording Tip");
-                                                myAlert.setMessage(" position your phone between you and your provider for best recording quality.");
+                                                myAlert.setMessage("Position your phone between you and your provider for best recording quality.");
                                                 myAlert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
