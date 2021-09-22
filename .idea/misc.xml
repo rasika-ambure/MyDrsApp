@@ -15,6 +15,8 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/search_rounded.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable-v24/specs_cred_border.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/border_black.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/bottom_rounded.xml" value="0.18693693693693694" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/bottom_rounded_rec.xml" value="0.18693693693693694" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/four_side_radius_small.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/four_side_rounded.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/fourborderrounded.xml" value="0.19054054054054054" />
@@ -26,6 +28,7 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/selector_add.xml" value="0.18693693693693694" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/selector_search.xml" value="0.19054054054054054" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/thumb_image.xml" value="0.19054054054054054" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/drawable/top_rounded.xml" value="0.18693693693693694" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/action_bar.xml" value="0.15172101449275363" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_add_dr.xml" value="0.1526268115942029" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_last_three_rec.xml" value="0.16893115942028986" />
@@ -50,10 +53,13 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_varec_tests.xml" value="0.17657657657657658" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_view_all_rec.xml" value="0.18" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/activity_view_all_recordings.xml" value="0.17657657657657658" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/bottom_rounded_rec.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/custom_list_row.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog2_spinner.xml" value="0.17346014492753623" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_about.xml" value="0.16168478260869565" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_after_concent.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_invalid.xml" value="0.17297297297297298" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_max_limit.xml" value="0.21" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_menu.xml" value="0.1539855072463768" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_player.xml" value="0.25" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/MyDrsApp/app/src/main/res/layout/dialog_recording.xml" value="0.25" />

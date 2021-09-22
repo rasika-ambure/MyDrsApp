@@ -26,8 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -76,8 +74,8 @@ public class RecordActivity extends AppCompatActivity {
     ImageView proImg, wave;
     ImageButton menu_btn;
     //    Animation animation;
-    Dialog recordingDialog, dialog, dialog2, dialog3, savingDialog, dialogAbout, dialogVision;
-    TextView txt1, txt2, pro, titleButton, titleButtonVision;
+    Dialog dialogOk, dialogMax, recordingDialog, dialog, dialog2, dialog3, savingDialog, dialogAbout, dialogVision;
+    TextView ok_btn, re_btn, buy_btn, txt1, txt2, pro, titleButton, titleButtonVision;
     BottomNavigationView bottomNavigationView;
     ArrayList<String> category_list, lastDuration, arrayList, arrayList2, spc_array, data, spc_name, pro_name, pro_id, txt2_array, temp, selected_pro_id_array;
     private RequestQueue mQueue;
@@ -531,12 +529,26 @@ public class RecordActivity extends AppCompatActivity {
 
                                                     record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
 
-                                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
-                                                    myAlert.setTitle("Recording Tip");
-                                                    myAlert.setMessage(" position your phone between you and your provider for best recording quality.");
-                                                    myAlert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                    dialogOk = new Dialog(RecordActivity.this);
+                                                    dialogOk.setContentView(R.layout.dialog_after_concent);
+                                                    dialogOk.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                                                    WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
+                                                    lp2.copyFrom(dialogOk.getWindow().getAttributes());
+                                                    lp2.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                                    lp2.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+                                                    dialogOk.show();
+                                                    dialogOk.getWindow().setAttributes(lp2);
+
+                                                    ok_btn = dialogOk.findViewById(R.id.ok_btn);
+
+                                                    ok_btn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
+                                                        public void onClick(View v) {
+
+                                                            dialogOk.dismiss();
+
                                                             dialog3 = new Dialog(RecordActivity.this);
                                                             dialog3.setContentView(R.layout.dialog_recording);
                                                             dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -678,8 +690,6 @@ public class RecordActivity extends AppCompatActivity {
                                                             dialog3.setCancelable(false);
                                                         }
                                                     });
-                                                    myAlert.show();
-                                                    myAlert.setCancelable(false);
                                                 }
                                             });
                                             declined.setOnClickListener(new View.OnClickListener() {
@@ -696,11 +706,23 @@ public class RecordActivity extends AppCompatActivity {
                                     }
                                 } else if (recording_count == 10) {
 
-                                    AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
-                                    myAlert.setTitle("This complimentary version of MyDrsOrders allows 10 recordings");
-                                    myAlert.setPositiveButton("Enter PSI Code", new DialogInterface.OnClickListener() {
+                                    dialogMax = new Dialog(RecordActivity.this);
+                                    dialogMax.setContentView(R.layout.dialog_max_limit);
+                                    dialogMax.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    WindowManager.LayoutParams lp4 = new WindowManager.LayoutParams();
+                                    lp4.copyFrom(dialogMax.getWindow().getAttributes());
+                                    lp4.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                    lp4.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                    dialogMax.show();
+                                    dialogMax.getWindow().setAttributes(lp4);
+
+                                    re_btn = dialogMax.findViewById(R.id.ok_btn);
+                                    buy_btn = dialogMax.findViewById(R.id.buy_btn);
+
+                                    re_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                        public void onClick(View v) {
+                                            dialogMax.dismiss();
                                             Intent psi = new Intent(RecordActivity.this, PSIPinActivity.class);
                                             psi.putExtra("id", patient_id);
                                             psi.putExtra("name", patient_name);
@@ -708,15 +730,16 @@ public class RecordActivity extends AppCompatActivity {
                                             finish();
                                         }
                                     });
-                                    myAlert.setNegativeButton("Buy Subscription", new DialogInterface.OnClickListener() {
+
+                                    buy_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                        public void onClick(View v) {
+                                            dialogMax.dismiss();
                                             Intent i = new Intent(RecordActivity.this, SubscribeActivity.class);
                                             startActivity(i);
                                             finish();
                                         }
                                     });
-                                    myAlert.show();
                                 }
                             } else {
 
@@ -745,12 +768,27 @@ public class RecordActivity extends AppCompatActivity {
 
                                                 recordingDialog.dismiss();
                                                 record.setImageDrawable(getDrawable(R.drawable.record_inactive1));
-                                                AlertDialog.Builder myAlert = new AlertDialog.Builder(RecordActivity.this);
-                                                myAlert.setTitle("Recording Tip");
-                                                myAlert.setMessage("Position your phone between you and your provider for best recording quality.");
-                                                myAlert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+
+                                                dialogOk = new Dialog(RecordActivity.this);
+                                                dialogOk.setContentView(R.layout.dialog_after_concent);
+                                                dialogOk.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                                                WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
+                                                lp2.copyFrom(dialogOk.getWindow().getAttributes());
+                                                lp2.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                                lp2.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+                                                dialogOk.show();
+                                                dialogOk.getWindow().setAttributes(lp2);
+
+                                                ok_btn = dialogOk.findViewById(R.id.ok_btn);
+
+                                                ok_btn.setOnClickListener(new View.OnClickListener() {
                                                     @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
+                                                    public void onClick(View v) {
+
+                                                        dialogOk.dismiss();
+
                                                         dialog3 = new Dialog(RecordActivity.this);
                                                         dialog3.setContentView(R.layout.dialog_recording);
                                                         dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -889,8 +927,6 @@ public class RecordActivity extends AppCompatActivity {
                                                         dialog3.setCancelable(false);
                                                     }
                                                 });
-                                                myAlert.show();
-                                                myAlert.setCancelable(false);
                                             }
                                         });
                                         declined.setOnClickListener(new View.OnClickListener() {

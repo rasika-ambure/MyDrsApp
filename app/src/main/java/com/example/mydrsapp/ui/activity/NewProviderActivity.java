@@ -524,7 +524,6 @@ public class NewProviderActivity extends AppCompatActivity implements AdapterVie
                                                     add.setImageDrawable(getDrawable(R.drawable.add_active));
 
                                                 } else {
-
                                                     add.setImageDrawable(getDrawable(R.drawable.add_inactive1));
                                                     AlertDialog.Builder myAlert = new AlertDialog.Builder(NewProviderActivity.this);
                                                     myAlert.setTitle("Error");
